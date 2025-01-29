@@ -1,12 +1,27 @@
-function Options() {
+import PropTypes from 'prop-types';
+
+function Options({ materials, onChange }) {
   return (
     <div>
-      <select>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-      </select>
+      <div className='select'>
+          <label htmlFor="options">Материал</label>
+          <select onChange={onChange} className="options" type="text" id="options">
+              {materials.map((material, index) => (
+                  <option key={index} value={material.name}>{material.name}</option>
+              ))}
+          </select>
+      </div>
     </div>
   );
 }
+
+Options.propTypes = {
+  materials: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Options;

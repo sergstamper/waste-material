@@ -1,4 +1,4 @@
-function Display(size) {
+function Display({size}) {
     return (
         <div>
             <h1>Display</h1>
