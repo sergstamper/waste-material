@@ -6,10 +6,14 @@ import Input from './components/Input/Input';
 import Display from './components/Display/Display';
 import Variation from './components/Variation/Variation';
 import Recommendation from './components/Recommendation/Recommendation';
+import Button from './components/Button/Button';
+import Result from './components/Result/Result';
 
 function App() {
   const [materials, setMaterials] = useState([]);
   const [currentMaterial, setCurrentMaterial] = useState([]);
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
 
   useEffect(() => {
     fetch('./materials.json')
@@ -32,15 +36,35 @@ function handleOptionsChange(event) {
   });
 }
 
+function calculate() {
+  if (width < height) {
+    const temp = width;
+    setWidth(height);
+    setHeight(temp);
+  }
+
+  if (width > currentMaterial.size[currentMaterial.size.length - 1]) {
+    console.log('width is too big');
+    return;
+  }
+}
+
   return (
     <>
       <Options 
         materials={materials} 
         onChange={(event) => handleOptionsChange(event)} />
-      <Input />
-      <Input />
+      <Input 
+        value={width} 
+        onChange={(event) => setWidth(event.target.value)} />
+      <Input 
+        value={height} 
+        onChange={(event) => setHeight(event.target.value)} />
       <Display sizes={currentMaterial.size} />
       <Variation />
+      <Button onClick={() => console.log('Button reset')} name="СБРОС" />
+      <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
+      <Result />
       <Recommendation />
     </>
   )

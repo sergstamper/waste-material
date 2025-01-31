@@ -1,7 +1,7 @@
 function Input({ value, onChange }) {
   return (
     <input
-      type="text"
+      type="number"
       value={value}
       onChange={onChange}
     />
