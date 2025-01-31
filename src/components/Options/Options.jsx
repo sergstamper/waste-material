@@ -7,7 +7,7 @@ function Options({ materials, onChange }) {
           <label htmlFor="options">Материал</label>
           <select onChange={onChange} className="options" type="text" id="options">
               {materials.map((material, index) => (
-                  <option key={index} value={material.name}>{material.name}</option>
+                  <option key={index} value={material.name}>{material.description}</option>
               ))}
           </select>
       </div>

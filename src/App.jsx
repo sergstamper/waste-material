@@ -9,6 +9,7 @@ import Recommendation from './components/Recommendation/Recommendation';
 
 function App() {
   const [materials, setMaterials] = useState([]);
+  const [currentMaterial, setCurrentMaterial] = useState([]);
 
   useEffect(() => {
     fetch('./materials.json')
@@ -17,16 +18,28 @@ function App() {
     })
     .then((data) => {
         setMaterials(data);
+        setCurrentMaterial(data[0]);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+function handleOptionsChange(event) {
+  const materialValue = event.target.value;
+  materials.forEach((material) => {
+    if (material.name === materialValue) {
+      setCurrentMaterial(material);
+    }
+  });
+}
+
   return (
     <>
-      <Options materials={materials} />
+      <Options 
+        materials={materials} 
+        onChange={(event) => handleOptionsChange(event)} />
       <Input />
       <Input />
-      <Display size={10} />
+      <Display sizes={currentMaterial.size} />
       <Variation />
       <Recommendation />
     </>
