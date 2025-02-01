@@ -37,16 +37,23 @@ function handleOptionsChange(event) {
 }
 
 function calculate() {
-  if (width < height) {
-    const temp = width;
-    setWidth(height);
-    setHeight(temp);
-  }
-
-  if (width > currentMaterial.size[currentMaterial.size.length - 1]) {
-    console.log('width is too big');
-    return;
-  }
+  let minWaste = 3200;
+  let wasteWidth = 0;
+  let wasteHeight = 0;
+  currentMaterial.size.forEach((size) => {
+      wasteWidth = +size - +width;
+      wasteHeight = +size - +height;
+      if (wasteWidth < minWaste && wasteWidth >= 0) {
+        minWaste = wasteWidth;
+      }
+      if (wasteHeight < minWaste && wasteHeight >= 0) {
+        minWaste = wasteHeight;
+      }
+      console.log(`${size}: ${wasteWidth}`);
+      console.log(`${size}: ${wasteHeight}`);
+      console.log(minWaste);
+    }
+  )
 }
 
   return (
