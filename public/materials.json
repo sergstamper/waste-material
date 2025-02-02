@@ -60,7 +60,7 @@
       "1370",
       "1520"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "ARB_MAT",
@@ -71,7 +71,7 @@
       "1370",
       "1520"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Oracal_GL",
@@ -82,7 +82,7 @@
       "1370",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Oracal_MAT",
@@ -93,7 +93,7 @@
       "1370",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Ritrama_GL",
@@ -104,7 +104,7 @@
       "1400",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Ritrama_MAT",
@@ -115,7 +115,7 @@
       "1400",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Orajet 3640_ProzrGL",
@@ -126,7 +126,7 @@
       "1370",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Orajet 3640_ProzrMAT",
@@ -137,7 +137,7 @@
       "1370",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Blue_back",
@@ -157,7 +157,7 @@
       "1400",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Ritrama_ProzrMAT",
@@ -168,7 +168,7 @@
       "1400",
       "1600"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "Cityk_150",
@@ -214,7 +214,7 @@
     "size": [
       "1370"
     ],
-    "type": "film"
+    "type": "vinyl"
   },
   {
     "name": "White. 3651",
@@ -223,6 +223,6 @@
       "1050",
       "1370"
     ],
-    "type": "film"
+    "type": "vinyl"
   }
 ]

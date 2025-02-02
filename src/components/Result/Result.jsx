@@ -2,7 +2,7 @@ function Result({ result }) {
   return (
     <div className="result">
       <h2>Result</h2>
-      <p>{result}</p>
+      <p>{result} m</p>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 function Display({sizes}) {
     return (
         <div>
-            <h1>Display</h1>
+            <h2>Display</h2>
             <ul>
                 {sizes && sizes.map((size, index) => (
                     <li key={index}>{size}</li>

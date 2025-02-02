@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .group label {
+    margin-bottom: 10px;
+  }
+  
+  .checkbox-flex {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checkbox-center {
+    display: flex;
+    align-items: space-between;
+    gap: 10px
+  }
+  
+  .checkbox-flex input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #0a98cf;
+  }
+  
+  .divider {
+    width: 1px;
+    height: 80px;
+    background-color: lightgray;
+  }
