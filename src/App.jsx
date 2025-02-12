@@ -14,9 +14,27 @@ function App() {
   const [currentMaterial, setCurrentMaterial] = useState([]);
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("");
+  const [trueWidth, setTrueWidth] = useState("");
+  const [trueHeight, setTrueHeight] = useState("");
   const [result, setResult] = useState("");
   const [checkboxState, setCheckboxState] = useState({});
-  const [activeGroup, setActiveGroup] = useState("Подворот");
+  const [activeGroup, setActiveGroup] = useState('underside');
+
+  useEffect(() => {
+    const initialCheckboxState = {
+      'top-1': false,
+      'left-1': false,
+      'center-1': false,
+      'right-1': false,
+      'bottom-1': false,
+      'top-2': false,
+      'left-2': false,
+      'center-2': false,
+      'right-2': false,
+      'bottom-2': false,
+    };
+    setCheckboxState(initialCheckboxState);
+  }, []);
 
   useEffect(() => {
     fetch('./materials.json')
@@ -49,15 +67,37 @@ function checkMaterial() {
   } 
 };
 
+const updateDimensions = (checkboxState) => {
+  let tempWidth = parseFloat(width) || 0;
+  let tempHeight = parseFloat(height) || 0;
+
+  // Логика для группы "Подворот"
+  if (checkboxState['left-1']) tempWidth += 40;
+  if (checkboxState['right-1']) tempWidth += 40;
+  if (checkboxState['top-1']) tempHeight += 40;
+  if (checkboxState['bottom-1']) tempHeight += 40;
+
+  // Логика для группы "Карманы"
+  if (checkboxState['left-2']) tempWidth += 100;
+  if (checkboxState['right-2']) tempWidth += 100;
+  if (checkboxState['top-2']) tempHeight += 100;
+  if (checkboxState['bottom-2']) tempHeight += 100;
+
+  // Обновляем ширину и высоту
+  setTrueWidth(tempWidth.toString());
+  setTrueHeight(tempHeight.toString());
+
+  console.log(trueWidth);
+  console.log(trueHeight);
+};
+
 function calculate() {
   let minWaste = 3200;
   let wasteWidth = 0;
   let wasteHeight = 0;
   let orientation = 'width';
   let waste = 0;
-  let tempWidth = width;
-  let tempHeight = height;
-
+  
   checkMaterial();
 
   currentMaterial.size.forEach((size) => {
@@ -82,16 +122,16 @@ function calculate() {
   )
 
   if (orientation === 'height') {
-    const temp = tempWidth;
-    tempWidth = tempHeight;
-    tempHeight = temp;
+    const temp = trueWidth;
+    setTrueWidth(trueHeight);
+    setTrueHeight(temp);
   }
 
-  waste = (minWaste/1000)*(tempHeight/1000);
+  waste = (minWaste/1000)*(trueHeight/1000);
   setResult(waste);
 
-  setWidth(tempWidth);
-  setHeight(tempHeight);
+  // setWidth(tempWidth);
+  // setHeight(tempHeight);
 
   console.log(height);
 }
@@ -102,25 +142,38 @@ const handleRadioChange = (event) => {
 
 const handleCheckboxChange = (event) => {
   const { id, checked } = event.target;
+  const groupSuffix = activeGroup === 'underside' ? '-1' : '-2';
 
-  if (id.includes(activeGroup === "Подворот" ? "-1" : "-2")) {
-    setCheckboxState((prevState) => {
-      const updatedState = { ...prevState };
+  setCheckboxState((prevState) => {
+    const updatedState = { ...prevState };
 
-      if (id.includes("center")) {
-        const groupId = id.split("-")[1];
-        for (const key in updatedState) {
-          if (key.endsWith(`-${groupId}`)) {
-            updatedState[key] = checked;
-          }
+    if (id.includes('center')) {
+      // Если изменяется центральный чекбокс, обновляем все чекбоксы в группе
+      for (const key in updatedState) {
+        if (key.endsWith(groupSuffix)) {
+          updatedState[key] = checked;
         }
-      } else {
-        updatedState[id] = checked;
       }
+    } else {
+      // Если изменяется ведомый чекбокс, обновляем его состояние
+      updatedState[id] = checked;
 
-      return updatedState;
-    });
-  }
+      // Проверяем, все ли ведомые чекбоксы активны
+      const allChecked = Object.keys(updatedState).every((key) => {
+        if (key.endsWith(groupSuffix) && !key.includes('center')) {
+          return updatedState[key];
+        }
+        return true;
+      });
+
+      // Обновляем состояние центрального чекбокса
+      updatedState[`center${groupSuffix}`] = allChecked;
+    }
+
+    updateDimensions(updatedState);
+
+    return updatedState;
+  });
 };
 
   return (

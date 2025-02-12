@@ -8,8 +8,8 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
           <input 
             type="radio" 
             name="option" 
-            value="Подворот" 
-            checked={activeGroup === "Подворот"}
+            value="underside" 
+            checked={activeGroup === "underside"}
             onChange={onRadioChange} 
           />
           Подворот
@@ -20,7 +20,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
             type="checkbox" 
             id="top-1" 
             checked={checkboxState["top-1"] || false}
-            disabled={activeGroup !== "Подворот"}
+            disabled={activeGroup !== "underside"}
             className="child-checkbox" 
           />
           <div className='checkbox-center'>
@@ -29,7 +29,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="left-1"
               checked={checkboxState["left-1"] || false}
-              disabled={activeGroup !== "Подворот"}
+              disabled={activeGroup !== "underside"}
               className="child-checkbox"
             />
             <input
@@ -37,7 +37,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="center-1"
               checked={checkboxState["center-1"] || false}
-              disabled={activeGroup !== "Подворот"}
+              disabled={activeGroup !== "underside"}
               className="master-checkbox"
             />
             <input
@@ -45,7 +45,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="right-1"
               checked={checkboxState["right-1"] || false}
-              disabled={activeGroup !== "Подворот"}
+              disabled={activeGroup !== "underside"}
               className="child-checkbox"
             />
           </div>
@@ -54,7 +54,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="bottom-1"
               checked={checkboxState["bottom-1"] || false}
-              disabled={activeGroup !== "Подворот"}
+              disabled={activeGroup !== "underside"}
               className="child-checkbox"
             />
         </div>
@@ -67,8 +67,8 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
           <input
             type="radio"
             name="option"
-            value="Карманы"
-            checked={activeGroup === "Карманы"}
+            value="pockets"
+            checked={activeGroup === "pockets"}
             onChange={onRadioChange}
           />
           Карманы
@@ -79,7 +79,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
             type="checkbox"
             id="top-2"
             checked={checkboxState["top-2"] || false}
-            disabled={activeGroup !== "Карманы"}
+            disabled={activeGroup !== "pockets"}
             className="child-checkbox"
           />
           <div className="checkbox-center">
@@ -88,7 +88,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="left-2"
               checked={checkboxState["left-2"] || false}
-              disabled={activeGroup !== "Карманы"}
+              disabled={activeGroup !== "pockets"}
               className="child-checkbox"
             />
             <input
@@ -96,7 +96,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="center-2"
               checked={checkboxState["center-2"] || false}
-              disabled={activeGroup !== "Карманы"}
+              disabled={activeGroup !== "pockets"}
               className="master-checkbox"
             />
             <input
@@ -104,7 +104,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
               type="checkbox"
               id="right-2"
               checked={checkboxState["right-2"] || false}
-              disabled={activeGroup !== "Карманы"}
+              disabled={activeGroup !== "pockets"}
               className="child-checkbox"
             />
           </div>
@@ -113,7 +113,7 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
             type="checkbox"
             id="bottom-2"
             checked={checkboxState["bottom-2"] || false}
-            disabled={activeGroup !== "Карманы"}
+            disabled={activeGroup !== "pockets"}
             className="child-checkbox"
           />
         </div>
