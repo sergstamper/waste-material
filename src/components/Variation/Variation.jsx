@@ -1,8 +1,10 @@
 import './Variation.css'
 
-function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup }) {
+function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup, isBanner }) {
+  const classHidden = isBanner ? 'container' : 'hidden';
+
   return (
-    <div className="container">
+    <div className={classHidden}>
       <div className="group">
         <label>
           <input 

@@ -48,3 +48,7 @@ body {
     height: 80px;
     background-color: lightgray;
   }
+
+  .hidden {
+    display: none;
+  }

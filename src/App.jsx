@@ -20,6 +20,8 @@ function App() {
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
 
+  const [isBanner, setIsBanner] = useState(false);
+
   useEffect(() => {
     const initialCheckboxState = {
       'top-1': false,
@@ -44,51 +46,28 @@ function App() {
     .then((data) => {
         setMaterials(data);
         setCurrentMaterial(data[0]);
+        checkMaterial(data[0].type);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 function handleOptionsChange(event) {
   const materialValue = event.target.value;
+  console.log(materialValue);
   materials.forEach((material) => {
     if (material.name === materialValue) {
       setCurrentMaterial(material);
+      checkMaterial(material.type);
     }
   });
 }
 
-function checkMaterial() {
-  if (currentMaterial.type === 'banner') {
-    console.log('banner')
-  } else if (currentMaterial.type === 'canvas') {
-    console.log('canvas')
-  } else if (currentMaterial.type === 'vinyl' || currentMaterial.type === 'paper') {
-    console.log('vinyl or paper')
-  } 
-};
-
-const updateDimensions = (checkboxState) => {
-  let tempWidth = parseFloat(width) || 0;
-  let tempHeight = parseFloat(height) || 0;
-
-  // Логика для группы "Подворот"
-  if (checkboxState['left-1']) tempWidth += 40;
-  if (checkboxState['right-1']) tempWidth += 40;
-  if (checkboxState['top-1']) tempHeight += 40;
-  if (checkboxState['bottom-1']) tempHeight += 40;
-
-  // Логика для группы "Карманы"
-  if (checkboxState['left-2']) tempWidth += 100;
-  if (checkboxState['right-2']) tempWidth += 100;
-  if (checkboxState['top-2']) tempHeight += 100;
-  if (checkboxState['bottom-2']) tempHeight += 100;
-
-  // Обновляем ширину и высоту
-  setTrueWidth(tempWidth.toString());
-  setTrueHeight(tempHeight.toString());
-
-  console.log(trueWidth);
-  console.log(trueHeight);
+function checkMaterial(type) {
+  if (type === 'banner') {
+    setIsBanner(true);
+  } else {
+    setIsBanner(false);
+  }
 };
 
 function calculate() {
@@ -97,6 +76,8 @@ function calculate() {
   let wasteHeight = 0;
   let orientation = 'width';
   let waste = 0;
+  setTrueWidth(width);
+  setTrueHeight(height);
   
   checkMaterial();
 
@@ -133,7 +114,7 @@ function calculate() {
   // setWidth(tempWidth);
   // setHeight(tempHeight);
 
-  console.log(height);
+
 }
 
 const handleRadioChange = (event) => {
@@ -176,6 +157,27 @@ const handleCheckboxChange = (event) => {
   });
 };
 
+const updateDimensions = (checkboxState) => {
+  let tempWidth = parseFloat(width) || 0;
+  let tempHeight = parseFloat(height) || 0;
+
+  // Логика для группы "Подворот"
+  if (checkboxState['left-1']) tempWidth += 40;
+  if (checkboxState['right-1']) tempWidth += 40;
+  if (checkboxState['top-1']) tempHeight += 40;
+  if (checkboxState['bottom-1']) tempHeight += 40;
+
+  // Логика для группы "Карманы"
+  if (checkboxState['left-2']) tempWidth += 100;
+  if (checkboxState['right-2']) tempWidth += 100;
+  if (checkboxState['top-2']) tempHeight += 100;
+  if (checkboxState['bottom-2']) tempHeight += 100;
+
+  // Обновляем ширину и высоту
+  setTrueWidth(tempWidth.toString());
+  setTrueHeight(tempHeight.toString());
+};
+
   return (
     <>
       <Options 
@@ -189,6 +191,7 @@ const handleCheckboxChange = (event) => {
         onChange={(event) => setHeight(event.target.value)} />
       <Display sizes={currentMaterial.size} />
       <Variation 
+        isBanner={isBanner}
         checkboxState={checkboxState}
         activeGroup={activeGroup}
         onCheckboxChange={handleCheckboxChange}
@@ -196,7 +199,7 @@ const handleCheckboxChange = (event) => {
       />
       <Button onClick={() => console.log('Button reset')} name="СБРОС" />
       <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
-      <Result result={result} />
+      <Result result={result} width={trueWidth} height={trueHeight} />
       <Recommendation />
     </>
   )
