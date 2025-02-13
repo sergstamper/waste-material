@@ -1,10 +1,10 @@
-import './Variation.css'
+import './BannerVariation.css'
 
-function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup, isBanner }) {
-  const classHidden = isBanner ? 'container' : 'hidden';
+function BannerVariation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup, isBanner }) {
+  const appearance = isBanner ? 'container' : 'hidden';
 
   return (
-    <div className={classHidden}>
+    <div className={appearance}>
       <div className="group">
         <label>
           <input 
@@ -124,4 +124,4 @@ function Variation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup
   );
 }
 
-export default Variation;
+export default BannerVariation;

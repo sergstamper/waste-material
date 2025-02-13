@@ -4,10 +4,11 @@ import './App.css'
 import Options from './components/Options/Options';
 import Input from './components/Input/Input';
 import Display from './components/Display/Display';
-import Variation from './components/Variation/Variation';
+import BannerVariation from './components/BannerVariation/BannerVariation';
 import Recommendation from './components/Recommendation/Recommendation';
 import Button from './components/Button/Button';
 import Result from './components/Result/Result';
+import CanvasVariation from './components/CanvasVariation/CanvasVariation';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -21,21 +22,24 @@ function App() {
   const [activeGroup, setActiveGroup] = useState('underside');
 
   const [isBanner, setIsBanner] = useState(false);
+  const [isCanvas, setIsCanvas] = useState(false);
+
+  const initialCheckboxState = {
+    'top-1': false,
+    'left-1': false,
+    'center-1': false,
+    'right-1': false,
+    'bottom-1': false,
+    'top-2': false,
+    'left-2': false,
+    'center-2': false,
+    'right-2': false,
+    'bottom-2': false,
+  };
 
   useEffect(() => {
-    const initialCheckboxState = {
-      'top-1': false,
-      'left-1': false,
-      'center-1': false,
-      'right-1': false,
-      'bottom-1': false,
-      'top-2': false,
-      'left-2': false,
-      'center-2': false,
-      'right-2': false,
-      'bottom-2': false,
-    };
     setCheckboxState(initialCheckboxState);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -65,8 +69,14 @@ function handleOptionsChange(event) {
 function checkMaterial(type) {
   if (type === 'banner') {
     setIsBanner(true);
-  } else {
+    setCheckboxState(initialCheckboxState);
+    setIsCanvas(false);
+  } else if (type === 'canvas') {
     setIsBanner(false);
+    setIsCanvas(true);
+  } else{
+    setIsBanner(false);
+    setIsCanvas(false);
   }
 };
 
@@ -118,7 +128,8 @@ function calculate() {
 }
 
 const handleRadioChange = (event) => {
-  setActiveGroup(event.target.value);
+  const newGroup = event.target.value;
+  setActiveGroup(newGroup);
 };
 
 const handleCheckboxChange = (event) => {
@@ -190,13 +201,15 @@ const updateDimensions = (checkboxState) => {
         value={height} 
         onChange={(event) => setHeight(event.target.value)} />
       <Display sizes={currentMaterial.size} />
-      <Variation 
+      <BannerVariation 
+        key={activeGroup}
         isBanner={isBanner}
         checkboxState={checkboxState}
         activeGroup={activeGroup}
         onCheckboxChange={handleCheckboxChange}
         onRadioChange={handleRadioChange}
       />
+      <CanvasVariation isCanvas={isCanvas} />
       <Button onClick={() => console.log('Button reset')} name="СБРОС" />
       <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
       <Result result={result} width={trueWidth} height={trueHeight} />
