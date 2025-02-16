@@ -23,6 +23,8 @@ function App() {
 
   const [isBanner, setIsBanner] = useState(false);
   const [isCanvas, setIsCanvas] = useState(false);
+  const [isStandardChecked, setIsStandardChecked] = useState(false);
+  const [canvasOption, setCanvasOption] = useState('zero');
 
   const initialCheckboxState = {
     'top-1': false,
@@ -55,6 +57,10 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function initial() {
+
+  }
+
 function handleOptionsChange(event) {
   const materialValue = event.target.value;
   console.log(materialValue);
@@ -80,52 +86,124 @@ function checkMaterial(type) {
   }
 };
 
+// function checkSizes() {
+//   if (+trueWidth > +currentMaterial.size[currentMaterial.size.length-1] 
+//     && +trueHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
+//     if (+trueHeight > +trueWidth) {
+//       const temp = trueWidth;
+//       setTrueWidth(trueHeight);
+//       setTrueHeight(temp);
+//     }
+//   } else if (+trueWidth > +currentMaterial.size[currentMaterial.size.length-1] 
+//   || +trueHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
+//     if (+trueHeight > +trueWidth) {
+//       const temp = trueWidth;
+//       setTrueWidth(trueHeight);
+//       setTrueHeight(temp);
+//     }
+//   } else if (+trueHeight > +trueWidth) {
+//     const temp = trueWidth;
+//     setTrueWidth(trueHeight);
+//     setTrueHeight(temp);
+//   }
+// }
+
 function calculate() {
-  let minWaste = 3200;
-  let wasteWidth = 0;
-  let wasteHeight = 0;
-  let orientation = 'width';
-  let waste = 0;
-  setTrueWidth(width);
-  setTrueHeight(height);
-  
-  checkMaterial();
+  // checkSizes();
+  const widthArray = [];
+  const heightArray = [];
+  let currentWidth = trueWidth;
+  let currentHeight = trueHeight;
+  let resultWidth = 0;
+  let resultHeight = 0;
+  let repeat = 1
 
-  currentMaterial.size.forEach((size) => {
-      wasteWidth = +size - +width;
-      wasteHeight = +size - +height;
-
-      if (wasteWidth < minWaste && wasteWidth >= 20) {
-        minWaste = wasteWidth;
-        orientation = 'width';
-      }
-
-      if (wasteHeight < minWaste && wasteHeight >= 20) {
-        minWaste = wasteHeight;
-        orientation = 'height';
-      }
-
-      // console.log(`${size}: ${wasteWidth}`);
-      // console.log(`${size}: ${wasteHeight}`);
-      // console.log(minWaste);
-      // console.log(orientation);
+  console.log(currentWidth, currentHeight, '- first');
+  if (+currentWidth > +currentMaterial.size[currentMaterial.size.length-1] 
+    && +currentHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
+    if (+currentHeight > +currentWidth) {
+      const temp = currentWidth;
+      currentWidth = currentHeight;
+      currentHeight = temp;
     }
-  )
-
-  if (orientation === 'height') {
-    const temp = trueWidth;
-    setTrueWidth(trueHeight);
-    setTrueHeight(temp);
+  } else if (+trueWidth > +currentMaterial.size[currentMaterial.size.length-1] 
+  || +trueHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
+    if (+currentHeight > +currentWidth) {
+      const temp = currentWidth;
+      currentWidth = currentHeight;
+      currentHeight = temp;
+    }
+  } else if (+currentHeight > +currentWidth) {
+    const temp = currentWidth;
+    currentWidth = currentHeight;
+    currentHeight = temp;
   }
 
-  waste = (minWaste/1000)*(trueHeight/1000);
-  setResult(waste);
+  console.log(currentWidth, currentHeight, '- after change');
+  
+  currentMaterial.size.forEach((size) => {
+    repeat = Math.ceil(currentWidth/size);
+    if (repeat > 1) {
+      resultWidth = currentWidth/repeat;
+      resultHeight = currentHeight*repeat;
+    } else {
+      resultWidth = currentWidth;
+      resultHeight = currentHeight;
+    }
+    widthArray.push(resultWidth);
+    heightArray.push(resultHeight);
 
-  // setWidth(tempWidth);
-  // setHeight(tempHeight);
-
-
+  });
+  console.log(widthArray);
+  console.log(heightArray);
 }
+
+// function calculate() {
+//   let minWaste = 3200;
+//   let wasteWidth = 0;
+//   let wasteHeight = 0;
+//   let orientation = 'width';
+//   let waste = 0;
+//   setTrueWidth(width);
+//   setTrueHeight(height);
+  
+//   // checkMaterial();
+
+//   currentMaterial.size.forEach((size) => {
+//       wasteWidth = +size - +width;
+//       wasteHeight = +size - +height;
+
+//       if (wasteWidth < minWaste && wasteWidth >= 20) {
+//         minWaste = wasteWidth;
+//         orientation = 'width';
+//       }
+
+//       if (wasteHeight < minWaste && wasteHeight >= 20) {
+//         minWaste = wasteHeight;
+//         orientation = 'height';
+//       }
+
+//       // console.log(`${size}: ${wasteWidth}`);
+//       // console.log(`${size}: ${wasteHeight}`);
+//       // console.log(minWaste);
+//       // console.log(orientation);
+//     }
+//   )
+
+//   if (orientation === 'height') {
+//     const temp = trueWidth;
+//     setTrueWidth(trueHeight);
+//     setTrueHeight(temp);
+//   }
+
+//   waste = (minWaste/1000)*(trueHeight/1000);
+//   setResult(waste);
+
+//   // setWidth(tempWidth);
+//   // setHeight(tempHeight);
+
+
+// }
 
 const handleRadioChange = (event) => {
   const newGroup = event.target.value;
@@ -189,6 +267,56 @@ const updateDimensions = (checkboxState) => {
   setTrueHeight(tempHeight.toString());
 };
 
+function handleCanvasChoise(value, isStandardChecked) {
+  let cutSmall = 0;
+  let cutBig = 0;
+
+  if (isStandardChecked) {
+    cutSmall = 50;
+    cutBig = 80;
+  }
+  if (value === 'zero') {
+    setTrueWidth(width);
+    setTrueHeight(height);
+  } else if (value === '15x30') {
+    setTrueWidth(width+90-cutSmall);
+    setTrueHeight(height+90-cutSmall);
+  } else if (value === '17x45') {
+    setTrueWidth(width+124-cutBig);
+    setTrueHeight(height+124-cutBig);
+  } else if (value === '23x45') {
+    setTrueWidth(width+136-cutBig);
+    setTrueHeight(height+136-cutBig);
+  }
+}
+
+const handleCanvasOptionChange = (event) => {
+  const value = event.target.value;
+  setCanvasOption(value);
+  handleCanvasChoise(value, isStandardChecked);
+};
+
+const handleStandardCheckboxChange = (event) => {
+  const isChecked = event.target.checked;
+  setIsStandardChecked(isChecked);
+  handleCanvasChoise(canvasOption, isChecked);
+};
+
+// const handleInputSize = (event) => {
+//   const value = event.target.value;
+//   const inputName = event.target.name;
+
+//   console.log(value, inputName);
+
+//   if (inputName === 'width') {
+//     setWidth(value);
+//     setTrueWidth(value);
+//   } else if (inputName === 'height') {
+//     setHeight(value);
+//     setTrueHeight(value);
+//   }
+// }
+
   return (
     <>
       <Options 
@@ -196,10 +324,16 @@ const updateDimensions = (checkboxState) => {
         onChange={(event) => handleOptionsChange(event)} />
       <Input 
         value={width} 
-        onChange={(event) => setWidth(event.target.value)} />
+        onChange={(event) => {
+          setWidth(event.target.value);
+          setTrueWidth(event.target.value);
+        }} />
       <Input 
         value={height} 
-        onChange={(event) => setHeight(event.target.value)} />
+        onChange={(event) => {
+          setHeight(event.target.value);
+          setTrueHeight(event.target.value);
+        }} />
       <Display sizes={currentMaterial.size} />
       <BannerVariation 
         key={activeGroup}
@@ -209,7 +343,12 @@ const updateDimensions = (checkboxState) => {
         onCheckboxChange={handleCheckboxChange}
         onRadioChange={handleRadioChange}
       />
-      <CanvasVariation isCanvas={isCanvas} />
+      <CanvasVariation 
+        isCanvas={isCanvas} 
+        onChange={handleCanvasOptionChange} 
+        isStandardChecked={isStandardChecked} 
+        onStandardCheckboxChange={handleStandardCheckboxChange} 
+      />
       <Button onClick={() => console.log('Button reset')} name="СБРОС" />
       <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
       <Result result={result} width={trueWidth} height={trueHeight} />
