@@ -20,11 +20,11 @@ function App() {
   const [result, setResult] = useState("");
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
+  const [canvasOption, setCanvasOption] = useState('zero');
 
   const [isBanner, setIsBanner] = useState(false);
   const [isCanvas, setIsCanvas] = useState(false);
   const [isStandardChecked, setIsStandardChecked] = useState(false);
-  const [canvasOption, setCanvasOption] = useState('zero');
 
   const initialCheckboxState = {
     'top-1': false,
@@ -112,28 +112,35 @@ function calculate() {
   // checkSizes();
   const widthArray = [];
   const heightArray = [];
-  let currentWidth = trueWidth;
-  let currentHeight = trueHeight;
+  const wasteArray = [];
+  const currentSize = currentMaterial.size;
+  let currentWidth = +trueWidth;
+  let currentHeight = +trueHeight;
   let resultWidth = 0;
   let resultHeight = 0;
   let repeat = 1
+  
+  let wasteWidth = 0;
+  let wasteHeight = 0;
+  let waste = 0;
+  let minWaste = +currentSize[currentSize.length-1];
 
   console.log(currentWidth, currentHeight, '- first');
-  if (+currentWidth > +currentMaterial.size[currentMaterial.size.length-1] 
-    && +currentHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
-    if (+currentHeight > +currentWidth) {
+  if (currentWidth > +currentSize[currentSize.length-1] 
+    && currentHeight > +currentSize[currentSize.length-1]) {
+    if (currentHeight > currentWidth) {
       const temp = currentWidth;
       currentWidth = currentHeight;
       currentHeight = temp;
     }
-  } else if (+trueWidth > +currentMaterial.size[currentMaterial.size.length-1] 
-  || +trueHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
-    if (+currentHeight > +currentWidth) {
+  } else if (currentWidth > +currentSize[currentSize.length-1] 
+  || currentHeight > +currentSize[currentSize.length-1]) {
+    if (currentHeight > currentWidth) {
       const temp = currentWidth;
       currentWidth = currentHeight;
       currentHeight = temp;
     }
-  } else if (+currentHeight > +currentWidth) {
+  } else if (currentHeight > currentWidth) {
     const temp = currentWidth;
     currentWidth = currentHeight;
     currentHeight = temp;
@@ -141,7 +148,7 @@ function calculate() {
 
   console.log(currentWidth, currentHeight, '- after change');
   
-  currentMaterial.size.forEach((size) => {
+  currentSize.forEach((size) => {
     repeat = Math.ceil(currentWidth/size);
     if (repeat > 1) {
       resultWidth = currentWidth/repeat;
@@ -150,12 +157,23 @@ function calculate() {
       resultWidth = currentWidth;
       resultHeight = currentHeight;
     }
-    widthArray.push(resultWidth);
-    heightArray.push(resultHeight);
+    widthArray.push(+resultWidth);
+    heightArray.push(+resultHeight);
 
   });
-  console.log(widthArray);
-  console.log(heightArray);
+
+  currentSize.forEach((size) => { //!!!
+    wasteWidth = +size - resultWidth;
+
+    if (wasteWidth < minWaste && wasteWidth >= 20) {
+      minWaste = wasteWidth;
+    }
+  })
+
+  waste = (minWaste/1000)*(currentHeight/1000);
+  setResult(waste);
+
+  console.log(waste);
 }
 
 // function calculate() {
