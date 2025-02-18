@@ -120,12 +120,11 @@ function calculate() {
   let resultHeight = 0;
   let repeat = 1
   
-  let wasteWidth = 0;
+  let wasteWidthArr = [];
   let wasteHeight = 0;
-  let waste = 0;
+  let waste = {};
   let minWaste = +currentSize[currentSize.length-1];
 
-  console.log(currentWidth, currentHeight, '- first');
   if (currentWidth > +currentSize[currentSize.length-1] 
     && currentHeight > +currentSize[currentSize.length-1]) {
     if (currentHeight > currentWidth) {
@@ -146,8 +145,6 @@ function calculate() {
     currentHeight = temp;
   }
 
-  console.log(currentWidth, currentHeight, '- after change');
-  
   currentSize.forEach((size) => {
     repeat = Math.ceil(currentWidth/size);
     if (repeat > 1) {
@@ -157,21 +154,25 @@ function calculate() {
       resultWidth = currentWidth;
       resultHeight = currentHeight;
     }
+    // waste[`${size}${repeat}`] = repeat;
+    waste[`${size}`][`${repeat}`] = repeat; //!!!
+    console.log(waste);
     widthArray.push(+resultWidth);
     heightArray.push(+resultHeight);
 
   });
 
-  currentSize.forEach((size) => { //!!!
-    wasteWidth = +size - resultWidth;
+  currentSize.forEach((size, index) => { 
+    wasteWidthArr.push(+size - widthArray[index]);
 
-    if (wasteWidth < minWaste && wasteWidth >= 20) {
-      minWaste = wasteWidth;
+    if (wasteWidthArr[index] < minWaste && wasteWidthArr[index] >= 20) {
+      minWaste = wasteWidthArr[index];
     }
+    waste[size] = (wasteWidthArr[index]/1000)*(heightArray[index]/1000);
+    console.log(wasteWidthArr[index], ':', heightArray[index], '—', waste[size]);
   })
 
-  waste = (minWaste/1000)*(currentHeight/1000);
-  setResult(waste);
+  // setResult(waste);
 
   console.log(waste);
 }
