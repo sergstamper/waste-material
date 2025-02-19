@@ -86,54 +86,25 @@ function checkMaterial(type) {
   }
 };
 
-// function checkSizes() {
-//   if (+trueWidth > +currentMaterial.size[currentMaterial.size.length-1] 
-//     && +trueHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
-//     if (+trueHeight > +trueWidth) {
-//       const temp = trueWidth;
-//       setTrueWidth(trueHeight);
-//       setTrueHeight(temp);
-//     }
-//   } else if (+trueWidth > +currentMaterial.size[currentMaterial.size.length-1] 
-//   || +trueHeight > +currentMaterial.size[currentMaterial.size.length-1]) {
-//     if (+trueHeight > +trueWidth) {
-//       const temp = trueWidth;
-//       setTrueWidth(trueHeight);
-//       setTrueHeight(temp);
-//     }
-//   } else if (+trueHeight > +trueWidth) {
-//     const temp = trueWidth;
-//     setTrueWidth(trueHeight);
-//     setTrueHeight(temp);
-//   }
-// }
-
 function calculate() {
-  // checkSizes();
-  const widthArray = [];
-  const heightArray = [];
-  const wasteArray = [];
   const currentSize = currentMaterial.size;
+  const length = currentSize.length-1;
   let currentWidth = +trueWidth;
   let currentHeight = +trueHeight;
   let resultWidth = 0;
   let resultHeight = 0;
   let repeat = 1
-  
-  let wasteWidthArr = [];
-  let wasteHeight = 0;
-  let waste = {};
-  let minWaste = +currentSize[currentSize.length-1];
+  let waste = [];
 
-  if (currentWidth > +currentSize[currentSize.length-1] 
-    && currentHeight > +currentSize[currentSize.length-1]) {
+  if (currentWidth > +currentSize[length] 
+    && currentHeight > +currentSize[length]) {
     if (currentHeight > currentWidth) {
       const temp = currentWidth;
       currentWidth = currentHeight;
       currentHeight = temp;
     }
-  } else if (currentWidth > +currentSize[currentSize.length-1] 
-  || currentHeight > +currentSize[currentSize.length-1]) {
+  } else if (currentWidth > +currentSize[length] 
+  || currentHeight > +currentSize[length]) {
     if (currentHeight > currentWidth) {
       const temp = currentWidth;
       currentWidth = currentHeight;
@@ -154,75 +125,29 @@ function calculate() {
       resultWidth = currentWidth;
       resultHeight = currentHeight;
     }
-    // waste[`${size}${repeat}`] = repeat;
-    waste[`${size}`][`${repeat}`] = repeat; //!!!
-    console.log(waste);
-    widthArray.push(+resultWidth);
-    heightArray.push(+resultHeight);
 
+    const wasteWidth = size - resultWidth;
+    const wasteArea = (wasteWidth / 1000) * (resultHeight / 1000);
+
+    waste.push({
+      size: size,
+      repeat: repeat,
+      wasteWidth: wasteWidth.toFixed(2),
+      waste: wasteArea.toFixed(2)
+    });
   });
-
-  currentSize.forEach((size, index) => { 
-    wasteWidthArr.push(+size - widthArray[index]);
-
-    if (wasteWidthArr[index] < minWaste && wasteWidthArr[index] >= 20) {
-      minWaste = wasteWidthArr[index];
-    }
-    waste[size] = (wasteWidthArr[index]/1000)*(heightArray[index]/1000);
-    console.log(wasteWidthArr[index], ':', heightArray[index], '—', waste[size]);
-  })
-
-  // setResult(waste);
-
   console.log(waste);
+  setResult(Math.min(...waste.map((item) => item.waste)));
 }
 
-// function calculate() {
-//   let minWaste = 3200;
-//   let wasteWidth = 0;
-//   let wasteHeight = 0;
-//   let orientation = 'width';
-//   let waste = 0;
-//   setTrueWidth(width);
-//   setTrueHeight(height);
-  
-//   // checkMaterial();
+  // currentSize.forEach((size, index) => { 
+  //   wasteWidthArr.push(+size - widthArray[index]);
 
-//   currentMaterial.size.forEach((size) => {
-//       wasteWidth = +size - +width;
-//       wasteHeight = +size - +height;
-
-//       if (wasteWidth < minWaste && wasteWidth >= 20) {
-//         minWaste = wasteWidth;
-//         orientation = 'width';
-//       }
-
-//       if (wasteHeight < minWaste && wasteHeight >= 20) {
-//         minWaste = wasteHeight;
-//         orientation = 'height';
-//       }
-
-//       // console.log(`${size}: ${wasteWidth}`);
-//       // console.log(`${size}: ${wasteHeight}`);
-//       // console.log(minWaste);
-//       // console.log(orientation);
-//     }
-//   )
-
-//   if (orientation === 'height') {
-//     const temp = trueWidth;
-//     setTrueWidth(trueHeight);
-//     setTrueHeight(temp);
-//   }
-
-//   waste = (minWaste/1000)*(trueHeight/1000);
-//   setResult(waste);
-
-//   // setWidth(tempWidth);
-//   // setHeight(tempHeight);
-
-
-// }
+  //   if (wasteWidthArr[index] < minWaste && wasteWidthArr[index] >= 20) {
+  //     minWaste = wasteWidthArr[index];
+  //   }
+  //   waste[size] = (wasteWidthArr[index]/1000)*(heightArray[index]/1000);
+  // })
 
 const handleRadioChange = (event) => {
   const newGroup = event.target.value;
