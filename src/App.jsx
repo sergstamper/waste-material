@@ -94,7 +94,8 @@ function calculate() {
   let resultWidth = 0;
   let resultHeight = 0;
   let repeat = 1
-  let waste = [];
+  let wasteInWidth = [];
+  let wasteInHeight = [];
 
   if (currentWidth > +currentSize[length] 
     && currentHeight > +currentSize[length]) {
@@ -127,17 +128,42 @@ function calculate() {
     }
 
     const wasteWidth = size - resultWidth;
-    const wasteArea = (wasteWidth / 1000) * (resultHeight / 1000);
+    const wasteAreaInWidth = (wasteWidth / 1000) * (resultHeight / 1000);
 
-    waste.push({
+    wasteInWidth.push({
       size: size,
       repeat: repeat,
       wasteWidth: wasteWidth.toFixed(2),
-      waste: wasteArea.toFixed(2)
+      waste: wasteAreaInWidth.toFixed(2)
     });
   });
-  console.log(waste);
-  setResult(Math.min(...waste.map((item) => item.waste)));
+
+  currentSize.forEach((size) => {
+    repeat = Math.ceil(currentHeight/size);
+    if (repeat > 1) {
+      resultHeight = currentHeight/repeat;
+      resultWidth = currentWidth*repeat;
+    } else {
+      resultHeight = currentHeight;
+      resultWidth = currentWidth;
+    }
+
+    const wasteHeight = size - resultHeight;
+    const wasteAreaInHeight = (wasteHeight / 1000) * (resultWidth / 1000);
+
+    wasteInHeight.push({
+      size: size,
+      repeat: repeat,
+      wasteHeight: wasteHeight.toFixed(2),
+      waste: wasteAreaInHeight.toFixed(2)
+    });
+  });
+
+
+  console.log(wasteInWidth);
+  console.log(wasteInHeight);
+
+  setResult(Math.min(...wasteInWidth.map((item) => item.waste)));
 }
 
   // currentSize.forEach((size, index) => { 
