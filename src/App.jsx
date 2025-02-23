@@ -9,6 +9,9 @@ import Recommendation from './components/Recommendation/Recommendation';
 import Button from './components/Button/Button';
 import Result from './components/Result/Result';
 import CanvasVariation from './components/CanvasVariation/CanvasVariation';
+import canvasChoise from './components/functions/canvasChoise';
+import calcDimensions from './components/functions/calcDimensions';
+import calcWaste from './components/functions/calcWaste';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -17,7 +20,7 @@ function App() {
   const [height, setHeight] = useState("");
   const [trueWidth, setTrueWidth] = useState("");
   const [trueHeight, setTrueHeight] = useState("");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState({});
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
   const [canvasOption, setCanvasOption] = useState('zero');
@@ -57,13 +60,8 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function initial() {
-
-  }
-
 function handleOptionsChange(event) {
   const materialValue = event.target.value;
-  console.log(materialValue);
   materials.forEach((material) => {
     if (material.name === materialValue) {
       setCurrentMaterial(material);
@@ -87,93 +85,15 @@ function checkMaterial(type) {
 };
 
 function calculate() {
-  const currentSize = currentMaterial.size;
-  const length = currentSize.length-1;
-  let currentWidth = +trueWidth;
-  let currentHeight = +trueHeight;
-  let resultWidth = 0;
-  let resultHeight = 0;
-  let repeat = 1
-  let wasteInWidth = [];
-  let wasteInHeight = [];
+  const {filteredWasteInWidthArr, filteredWasteInHeightArr} = calcWaste(trueWidth, trueHeight, currentMaterial);
 
-  if (currentWidth > +currentSize[length] 
-    && currentHeight > +currentSize[length]) {
-    if (currentHeight > currentWidth) {
-      const temp = currentWidth;
-      currentWidth = currentHeight;
-      currentHeight = temp;
-    }
-  } else if (currentWidth > +currentSize[length] 
-  || currentHeight > +currentSize[length]) {
-    if (currentHeight > currentWidth) {
-      const temp = currentWidth;
-      currentWidth = currentHeight;
-      currentHeight = temp;
-    }
-  } else if (currentHeight > currentWidth) {
-    const temp = currentWidth;
-    currentWidth = currentHeight;
-    currentHeight = temp;
-  }
+  console.log(filteredWasteInWidthArr);
+  console.log(filteredWasteInHeightArr);
 
-  currentSize.forEach((size) => {
-    repeat = Math.ceil(currentWidth/size);
-    if (repeat > 1) {
-      resultWidth = currentWidth/repeat;
-      resultHeight = currentHeight*repeat;
-    } else {
-      resultWidth = currentWidth;
-      resultHeight = currentHeight;
-    }
+  setResult({filteredWasteInWidthArr, filteredWasteInHeightArr});
 
-    const wasteWidth = size - resultWidth;
-    const wasteAreaInWidth = (wasteWidth / 1000) * (resultHeight / 1000);
-
-    wasteInWidth.push({
-      size: size,
-      repeat: repeat,
-      wasteWidth: wasteWidth.toFixed(2),
-      waste: wasteAreaInWidth.toFixed(2)
-    });
-  });
-
-  currentSize.forEach((size) => {
-    repeat = Math.ceil(currentHeight/size);
-    if (repeat > 1) {
-      resultHeight = currentHeight/repeat;
-      resultWidth = currentWidth*repeat;
-    } else {
-      resultHeight = currentHeight;
-      resultWidth = currentWidth;
-    }
-
-    const wasteHeight = size - resultHeight;
-    const wasteAreaInHeight = (wasteHeight / 1000) * (resultWidth / 1000);
-
-    wasteInHeight.push({
-      size: size,
-      repeat: repeat,
-      wasteHeight: wasteHeight.toFixed(2),
-      waste: wasteAreaInHeight.toFixed(2)
-    });
-  });
-
-
-  console.log(wasteInWidth);
-  console.log(wasteInHeight);
-
-  setResult(Math.min(...wasteInWidth.map((item) => item.waste)));
+  // setResult(Math.min(...filteredWasteInWidthArr.map((item) => item.waste)));
 }
-
-  // currentSize.forEach((size, index) => { 
-  //   wasteWidthArr.push(+size - widthArray[index]);
-
-  //   if (wasteWidthArr[index] < minWaste && wasteWidthArr[index] >= 20) {
-  //     minWaste = wasteWidthArr[index];
-  //   }
-  //   waste[size] = (wasteWidthArr[index]/1000)*(heightArray[index]/1000);
-  // })
 
 const handleRadioChange = (event) => {
   const newGroup = event.target.value;
@@ -216,48 +136,17 @@ const handleCheckboxChange = (event) => {
   });
 };
 
-const updateDimensions = (checkboxState) => {
-  let tempWidth = parseFloat(width) || 0;
-  let tempHeight = parseFloat(height) || 0;
+function updateDimensions(checkboxState) {
+  let { tempWidth, tempHeight } = calcDimensions(checkboxState, width, height);
 
-  // Логика для группы "Подворот"
-  if (checkboxState['left-1']) tempWidth += 40;
-  if (checkboxState['right-1']) tempWidth += 40;
-  if (checkboxState['top-1']) tempHeight += 40;
-  if (checkboxState['bottom-1']) tempHeight += 40;
-
-  // Логика для группы "Карманы"
-  if (checkboxState['left-2']) tempWidth += 100;
-  if (checkboxState['right-2']) tempWidth += 100;
-  if (checkboxState['top-2']) tempHeight += 100;
-  if (checkboxState['bottom-2']) tempHeight += 100;
-
-  // Обновляем ширину и высоту
   setTrueWidth(tempWidth.toString());
   setTrueHeight(tempHeight.toString());
 };
 
 function handleCanvasChoise(value, isStandardChecked) {
-  let cutSmall = 0;
-  let cutBig = 0;
-
-  if (isStandardChecked) {
-    cutSmall = 50;
-    cutBig = 80;
-  }
-  if (value === 'zero') {
-    setTrueWidth(width);
-    setTrueHeight(height);
-  } else if (value === '15x30') {
-    setTrueWidth(width+90-cutSmall);
-    setTrueHeight(height+90-cutSmall);
-  } else if (value === '17x45') {
-    setTrueWidth(width+124-cutBig);
-    setTrueHeight(height+124-cutBig);
-  } else if (value === '23x45') {
-    setTrueWidth(width+136-cutBig);
-    setTrueHeight(height+136-cutBig);
-  }
+  const { canvWidth, canvHeight } = canvasChoise(value, width, height, isStandardChecked);
+  setTrueWidth(canvWidth);
+  setTrueHeight(canvHeight);
 }
 
 const handleCanvasOptionChange = (event) => {
@@ -271,21 +160,6 @@ const handleStandardCheckboxChange = (event) => {
   setIsStandardChecked(isChecked);
   handleCanvasChoise(canvasOption, isChecked);
 };
-
-// const handleInputSize = (event) => {
-//   const value = event.target.value;
-//   const inputName = event.target.name;
-
-//   console.log(value, inputName);
-
-//   if (inputName === 'width') {
-//     setWidth(value);
-//     setTrueWidth(value);
-//   } else if (inputName === 'height') {
-//     setHeight(value);
-//     setTrueHeight(value);
-//   }
-// }
 
   return (
     <>
