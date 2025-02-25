@@ -12,6 +12,7 @@ import CanvasVariation from './components/CanvasVariation/CanvasVariation';
 import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
 import calcWaste from './components/functions/calcWaste';
+import { use } from 'react';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -20,7 +21,7 @@ function App() {
   const [height, setHeight] = useState("");
   const [trueWidth, setTrueWidth] = useState("");
   const [trueHeight, setTrueHeight] = useState("");
-  const [result, setResult] = useState({});
+  const [result, setResult] = useState({ wasteInWidth: [], wasteInHeight: [] });
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
   const [canvasOption, setCanvasOption] = useState('zero');
@@ -87,10 +88,10 @@ function checkMaterial(type) {
 function calculate() {
   const {filteredWasteInWidthArr, filteredWasteInHeightArr} = calcWaste(trueWidth, trueHeight, currentMaterial);
 
-  console.log(filteredWasteInWidthArr);
-  console.log(filteredWasteInHeightArr);
-
-  setResult({filteredWasteInWidthArr, filteredWasteInHeightArr});
+  setResult({
+    wasteInWidth: filteredWasteInWidthArr, 
+    wasteInHeight: filteredWasteInHeightArr
+  });
 
   // setResult(Math.min(...filteredWasteInWidthArr.map((item) => item.waste)));
 }
