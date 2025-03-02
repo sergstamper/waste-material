@@ -12,7 +12,6 @@ import CanvasVariation from './components/CanvasVariation/CanvasVariation';
 import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
 import calcWaste from './components/functions/calcWaste';
-import { use } from 'react';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -61,106 +60,109 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-function handleOptionsChange(event) {
-  const materialValue = event.target.value;
-  materials.forEach((material) => {
-    if (material.name === materialValue) {
-      setCurrentMaterial(material);
-      checkMaterial(material.type);
-    }
-  });
-}
-
-function checkMaterial(type) {
-  if (type === 'banner') {
-    setIsBanner(true);
-    setCheckboxState(initialCheckboxState);
-    setIsCanvas(false);
-  } else if (type === 'canvas') {
-    setIsBanner(false);
-    setIsCanvas(true);
-  } else{
-    setIsBanner(false);
-    setIsCanvas(false);
-  }
-};
-
-function calculate() {
-  const {filteredWasteInWidthArr, filteredWasteInHeightArr} = calcWaste(trueWidth, trueHeight, currentMaterial);
-
-  setResult({
-    wasteInWidth: filteredWasteInWidthArr, 
-    wasteInHeight: filteredWasteInHeightArr
-  });
-
-  // setResult(Math.min(...filteredWasteInWidthArr.map((item) => item.waste)));
-}
-
-const handleRadioChange = (event) => {
-  const newGroup = event.target.value;
-  setActiveGroup(newGroup);
-};
-
-const handleCheckboxChange = (event) => {
-  const { id, checked } = event.target;
-  const groupSuffix = activeGroup === 'underside' ? '-1' : '-2';
-
-  setCheckboxState((prevState) => {
-    const updatedState = { ...prevState };
-
-    if (id.includes('center')) {
-      // Если изменяется центральный чекбокс, обновляем все чекбоксы в группе
-      for (const key in updatedState) {
-        if (key.endsWith(groupSuffix)) {
-          updatedState[key] = checked;
-        }
+  function handleOptionsChange(event) {
+    const materialValue = event.target.value;
+    materials.forEach((material) => {
+      if (material.name === materialValue) {
+        setCurrentMaterial(material);
+        checkMaterial(material.type);
       }
-    } else {
-      // Если изменяется ведомый чекбокс, обновляем его состояние
-      updatedState[id] = checked;
+    });
+  }
 
-      // Проверяем, все ли ведомые чекбоксы активны
-      const allChecked = Object.keys(updatedState).every((key) => {
-        if (key.endsWith(groupSuffix) && !key.includes('center')) {
-          return updatedState[key];
-        }
-        return true;
-      });
-
-      // Обновляем состояние центрального чекбокса
-      updatedState[`center${groupSuffix}`] = allChecked;
+  function checkMaterial(type) {
+    if (type === 'banner') {
+      setIsBanner(true);
+      setCheckboxState(initialCheckboxState);
+      setIsCanvas(false);
+    } else if (type === 'canvas') {
+      setIsBanner(false);
+      setIsCanvas(true);
+    } else{
+      setIsBanner(false);
+      setIsCanvas(false);
     }
+  };
 
-    updateDimensions(updatedState);
+  const handleRadioChange = (event) => {
+    const newGroup = event.target.value;
+    setActiveGroup(newGroup);
+  };
 
-    return updatedState;
-  });
-};
+  const handleCheckboxChange = (event) => {
+    const { id, checked } = event.target;
+    const groupSuffix = activeGroup === 'underside' ? '-1' : '-2';
 
-function updateDimensions(checkboxState) {
-  let { tempWidth, tempHeight } = calcDimensions(checkboxState, width, height);
+    setCheckboxState((prevState) => {
+      const updatedState = { ...prevState };
 
-  setTrueWidth(tempWidth.toString());
-  setTrueHeight(tempHeight.toString());
-};
+      if (id.includes('center')) {
+        // Если изменяется центральный чекбокс, обновляем все чекбоксы в группе
+        for (const key in updatedState) {
+          if (key.endsWith(groupSuffix)) {
+            updatedState[key] = checked;
+          }
+        }
+      } else {
+        // Если изменяется ведомый чекбокс, обновляем его состояние
+        updatedState[id] = checked;
 
-function handleCanvasChoise(value, isStandardChecked) {
-  const { canvWidth, canvHeight } = canvasChoise(value, width, height, isStandardChecked);
-  setTrueWidth(canvWidth);
-  setTrueHeight(canvHeight);
-}
+        // Проверяем, все ли ведомые чекбоксы активны
+        const allChecked = Object.keys(updatedState).every((key) => {
+          if (key.endsWith(groupSuffix) && !key.includes('center')) {
+            return updatedState[key];
+          }
+          return true;
+        });
 
-const handleCanvasOptionChange = (event) => {
-  const value = event.target.value;
-  setCanvasOption(value);
-  handleCanvasChoise(value, isStandardChecked);
-};
+        // Обновляем состояние центрального чекбокса
+        updatedState[`center${groupSuffix}`] = allChecked;
+      }
 
-const handleStandardCheckboxChange = (event) => {
-  const isChecked = event.target.checked;
-  setIsStandardChecked(isChecked);
-  handleCanvasChoise(canvasOption, isChecked);
-};
+      updateDimensions(updatedState);
+
+      return updatedState;
+    });
+  };
+
+  function updateDimensions(checkboxState) {
+    let { tempWidth, tempHeight } = calcDimensions(checkboxState, width, height);
+
+    setTrueWidth(tempWidth.toString());
+    setTrueHeight(tempHeight.toString());
+  };
+
+  function handleCanvasChoise(value, isStandardChecked) {
+    const { canvWidth, canvHeight } = canvasChoise(value, width, height, isStandardChecked);
+    setTrueWidth(canvWidth);
+    setTrueHeight(canvHeight);
+  }
+
+  const handleCanvasOptionChange = (event) => {
+    const value = event.target.value;
+    setCanvasOption(value);
+    handleCanvasChoise(value, isStandardChecked);
+  };
+
+  const handleStandardCheckboxChange = (event) => {
+    const isChecked = event.target.checked;
+    setIsStandardChecked(isChecked);
+    handleCanvasChoise(canvasOption, isChecked);
+  };
+
+  function calculate() {
+    const {
+      filteredWasteInWidthArr, 
+      filteredWasteInHeightArr
+    } = calcWaste(trueWidth, trueHeight, currentMaterial);
+
+    setResult({
+      wasteInWidth: filteredWasteInWidthArr, 
+      wasteInHeight: filteredWasteInHeightArr
+    });
+
+    // setResult(Math.min(...filteredWasteInWidthArr.map((item) => item.waste)));
+  }
 
   return (
     <>

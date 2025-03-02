@@ -5,14 +5,15 @@ function formingResArr(
   repeat, 
   direction) {
 
+  const wasteArr = [];
+  const currentMaterialType = material.type;
+  const currentSizeArr = material.size;
+  
   let width = 0; 
   let height = 0;
   let resultWidth = 0;
   let resultHeight = 0;
-  let wasteArr = [];
   let key = 'wasteWidth';
-  let currentMaterialType = material.type;
-  let currentSizeArr = material.size;
 
   if (direction === 'width') {
     width = currentWidth;
@@ -26,6 +27,7 @@ function formingResArr(
   currentSizeArr.forEach((size) => {
     repeat = Math.ceil(width/size);
     let add = 0;
+    
     if (repeat > 1) {
       if (currentMaterialType === 'banner') {
         add = repeat === 2 ? 40 : 80;
