@@ -31,9 +31,6 @@ function calcWaste(width, height, material) {
   const wasteInWidthArr = formingResArr(currentWidth, currentHeight, material, repeat, 'width');
   const wasteInHeightArr = formingResArr(currentWidth, currentHeight, material, repeat, 'height');
 
-  console.log(wasteInWidthArr);
-  console.log(wasteInHeightArr);
-
   const filteredWasteInWidthArr = filterMinWaste(wasteInWidthArr, 'wasteWidth');
   const filteredWasteInHeightArr = filterMinWaste(wasteInHeightArr, 'wasteHeight');
 
