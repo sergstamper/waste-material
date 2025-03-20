@@ -12,6 +12,7 @@ import CanvasVariation from './components/CanvasVariation/CanvasVariation';
 import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
 import calcWaste from './components/functions/calcWaste';
+import makeResult from './components/functions/makeResult';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -20,7 +21,9 @@ function App() {
   const [height, setHeight] = useState("");
   const [trueWidth, setTrueWidth] = useState("");
   const [trueHeight, setTrueHeight] = useState("");
-  const [result, setResult] = useState({ wasteInWidth: [], wasteInHeight: [] });
+  const [result, setResult] = useState({});
+  const [done, setDone] = useState(false);
+  // const [result, setResult] = useState({ wasteInWidth: [], wasteInHeight: [] });
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
   const [canvasOption, setCanvasOption] = useState('zero');
@@ -56,6 +59,7 @@ function App() {
         setMaterials(data);
         setCurrentMaterial(data[0]);
         checkMaterial(data[0].type);
+        setDone(false);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -66,6 +70,11 @@ function App() {
       if (material.name === materialValue) {
         setCurrentMaterial(material);
         checkMaterial(material.type);
+      }
+
+      if (material.type !== 'banner' && trueWidth && trueHeight) {
+        setTrueWidth(width);
+        setTrueHeight(height);
       }
     });
   }
@@ -87,6 +96,9 @@ function App() {
   const handleRadioChange = (event) => {
     const newGroup = event.target.value;
     setActiveGroup(newGroup);
+    setCheckboxState(initialCheckboxState) //!!
+    setTrueWidth(width); //!!
+    setTrueHeight(height); //!!
   };
 
   const handleCheckboxChange = (event) => {
@@ -156,10 +168,14 @@ function App() {
       filteredWasteInHeightArr
     } = calcWaste(trueWidth, trueHeight, currentMaterial);
 
-    setResult({
-      wasteInWidth: filteredWasteInWidthArr, 
-      wasteInHeight: filteredWasteInHeightArr
-    });
+    // setResult({
+    //   wasteInWidth: filteredWasteInWidthArr, 
+    //   wasteInHeight: filteredWasteInHeightArr
+    // });
+
+    const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
+    setResult(resultObj);
+    setDone(true);
 
     // setResult(Math.min(...filteredWasteInWidthArr.map((item) => item.waste)));
   }
@@ -198,7 +214,7 @@ function App() {
       />
       <Button onClick={() => console.log('Button reset')} name="СБРОС" />
       <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
-      <Result result={result} width={trueWidth} height={trueHeight} />
+      <Result result={result} done={done} />
       <Recommendation />
     </>
   )
