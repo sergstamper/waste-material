@@ -6,16 +6,26 @@ function makeResult(wasteWidthArr, wasteHeightArr) {
         minWaste: 0,
         parts: 0,
         materialSize: 0,
+        edgeValues: []
     };
-
-    let widthIndex = 0;
-    let heightIndex = 0;
 
     console.log(wasteWidthArr);
     console.log(wasteHeightArr);
     
-    const solidWidthPart = wasteWidthArr.filter((element) => element.repeat === 1);
-    const solidHeightPart = wasteHeightArr.filter((element) => element.repeat === 1);
+    const nonZeroWidthArr = wasteWidthArr.filter((element) => element.wasteWidth >= 20); //Remove objects with zero waste
+    const nonZeroHeightArr = wasteHeightArr.filter((element) => element.wasteHeight >= 20);
+
+    const solidWidthPart = nonZeroWidthArr.filter((element) => element.repeat === 1); //Select objects without division
+    const solidHeightPart = nonZeroHeightArr.filter((element) => element.repeat === 1);
+
+    const edgeWidthValue = wasteWidthArr
+        .filter((element) => +element.wasteWidth < 20 && element.repeat === 1) //Find objects with edge values (2500, 3200 etc.)
+        .map(({size}) => size)[0] || 0;
+    const edgeHeightValue = wasteHeightArr
+        .filter((element) => +element.wasteHeight < 20 && element.repeat === 1)
+        .map(({size}) => size)[0] || 0;
+
+    resultValuesObj.edgeValues = [+edgeWidthValue, +edgeHeightValue];
 
     const minWasteObj = calcMinWaste(wasteWidthArr);
     resultValuesObj.minWaste = minWasteObj.waste;
@@ -27,26 +37,18 @@ function makeResult(wasteWidthArr, wasteHeightArr) {
         && solidWidthPart.length > 0
         || solidHeightPart.length > 0
     ) {
-        if (solidWidthPart.length > 1 && +solidWidthPart[0].wasteWidth < 20) {
-            widthIndex = 1;
-        } 
-        if (solidHeightPart.length > 1 && +solidHeightPart[0].wasteHeight < 20) {
-            heightIndex = 1;
-        }
 
         if (solidWidthPart.length > 0 && solidHeightPart.length > 0) {
-            if (solidWidthPart[widthIndex].waste < solidHeightPart[heightIndex].waste
-                && solidWidthPart[widthIndex].waste >= 20
-                || solidHeightPart[heightIndex].waste >= 20
-            ) {
-                resultValuesObj.waste = solidWidthPart[widthIndex].waste;
+            if (solidWidthPart[0].waste < solidHeightPart[0].waste) 
+            {
+                resultValuesObj.waste = solidWidthPart[0].waste;
             } else {
-                resultValuesObj.waste = solidHeightPart[heightIndex].waste;
+                resultValuesObj.waste = solidHeightPart[0].waste;
             }
         } else if (solidWidthPart.length > 0) {
-            resultValuesObj.waste = solidWidthPart[widthIndex].waste;
+            resultValuesObj.waste = solidWidthPart[0].waste;
         } else if (solidHeightPart.length > 0) {
-            resultValuesObj.waste = solidHeightPart[heightIndex].waste;
+            resultValuesObj.waste = solidHeightPart[0].waste;
         } 
     } else if (wasteWidthArr.length > 0 && wasteHeightArr.length > 0) {
         resultValuesObj.waste = resultValuesObj.minWaste;
@@ -54,6 +56,8 @@ function makeResult(wasteWidthArr, wasteHeightArr) {
     } else {
         resultValuesObj.waste = 0;
     }
+
+    console.log('result object', resultValuesObj);
 
     return resultValuesObj;
 }
