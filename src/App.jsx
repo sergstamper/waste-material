@@ -13,6 +13,7 @@ import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
 import calcWaste from './components/functions/calcWaste';
 import makeResult from './components/functions/makeResult';
+import resultMsg from './components/functions/resultMsg';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -168,16 +169,19 @@ function App() {
       filteredWasteInHeightArr
     } = calcWaste(trueWidth, trueHeight, currentMaterial);
 
-    // setResult({
-    //   wasteInWidth: filteredWasteInWidthArr, 
-    //   wasteInHeight: filteredWasteInHeightArr
-    // });
-
     const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
-    setResult(resultObj);
-    setDone(true);
 
-    // setResult(Math.min(...filteredWasteInWidthArr.map((item) => item.waste)));
+    // const messageObj = resultMsg(resultObj, currentMaterial)
+
+    // console.log(currentMaterial);
+    // console.log(resultObj);
+
+    // setResult(resultObj);
+
+    const resMsg = resultMsg(resultObj, currentMaterial, checkboxState);
+    setResult(resMsg);
+
+    setDone(true);
   }
 
   return (

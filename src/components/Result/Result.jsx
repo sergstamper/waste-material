@@ -1,7 +1,7 @@
 // import calcMinWaste from "../functions/calcMinWaste";
 
 function Result({ result, done }) {
-  const { waste, minWaste, parts, materialSize } = result;
+  const { wasteMsg, minWasteMsg, tip } = result;
   // const wasteWidthArr = result.wasteInWidth;
   // const wasteHeightArr = result.wasteInHeight; 
   // let waste = 0;
@@ -67,12 +67,15 @@ function Result({ result, done }) {
   return (
     <div className="result">
       <h2>Result</h2>
-      <p>Waste: {waste}</p>
+      <p>Отход: {wasteMsg || 0}</p>
       {done ? 
-      <p>Minimal waste: <b>{minWaste}</b> from <b>{parts}</b> parts on material width <b>{materialSize}</b></p>
-      : null
+        <div>
+          <p>{minWasteMsg}</p>
+          <p>{tip || null}</p>
+        </div>
+        : null
       }
-      </div>
+    </div>
   );
 }
 

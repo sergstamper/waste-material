@@ -57,8 +57,6 @@ function makeResult(wasteWidthArr, wasteHeightArr) {
         resultValuesObj.waste = 0;
     }
 
-    console.log('result object', resultValuesObj);
-
     return resultValuesObj;
 }
 

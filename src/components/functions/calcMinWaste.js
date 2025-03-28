@@ -3,9 +3,6 @@ function calcMinWaste(widthArr) {
   const filteredWidthArr = widthArr.filter((element) => element.wasteWidth >= 20);
   // const filteredHeightArr = heightArr.filter((element) => element.wasteHeight >= 20);
 
-  console.log('From minWaste: ', filteredWidthArr);
-  // console.log('From minWaste: ', filteredHeightArr);
-
   const minWidthWasteObject = filteredWidthArr.reduce((minItem, currentItem) => {
     if (+currentItem.waste < +minItem.waste && +currentItem.waste <= 1 && +minItem.waste <= 1) {
         return +currentItem.repeat <= +minItem.repeat ? currentItem : minItem;
@@ -27,8 +24,6 @@ function calcMinWaste(widthArr) {
   // });
 
   minWasteObj = minWidthWasteObject;
-
-  console.log('From minWaste: ', minWasteObj);
   
   return minWasteObj;
 }
