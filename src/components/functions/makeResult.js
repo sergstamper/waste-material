@@ -1,6 +1,6 @@
 import calcMinWaste from "../functions/calcMinWaste";
 
-function makeResult(wasteWidthArr, wasteHeightArr) {
+function makeResult(wasteWidthArr, wasteHeightArr, width, height, currentMaterial) {
     const resultValuesObj = {
         waste: 0,
         minWaste: 0,
@@ -9,21 +9,34 @@ function makeResult(wasteWidthArr, wasteHeightArr) {
         edgeValues: []
     };
 
-    console.log(wasteWidthArr);
-    console.log(wasteHeightArr);
-    
     const nonZeroWidthArr = wasteWidthArr.filter((element) => element.wasteWidth >= 20); //Remove objects with zero waste
     const nonZeroHeightArr = wasteHeightArr.filter((element) => element.wasteHeight >= 20);
 
     const solidWidthPart = nonZeroWidthArr.filter((element) => element.repeat === 1); //Select objects without division
     const solidHeightPart = nonZeroHeightArr.filter((element) => element.repeat === 1);
 
-    const edgeWidthValue = wasteWidthArr
-        .filter((element) => +element.wasteWidth < 20 && element.repeat === 1) //Find objects with edge values (2500, 3200 etc.)
+    const edgeWidthValue = currentMaterial
+        .filter((element) => {(+element.size - +width) < 20 && element.repeat === 1
+            // console.log('edgeWidthValue', element.size, +element.size - +width, width);
+        }) //Find objects with edge values (2500, 3200 etc.)
         .map(({size}) => size)[0] || 0;
-    const edgeHeightValue = wasteHeightArr
-        .filter((element) => +element.wasteHeight < 20 && element.repeat === 1)
+    const edgeHeightValue = currentMaterial
+        .filter((element) => {(+element.size - +height) < 20 && element.repeat === 1
+            // console.log('edgeHeightValue', element.size, +element.size - +height, height);
+        })
         .map(({size}) => size)[0] || 0;
+
+        // console.log('Edge values: ', edgeWidthValue, edgeHeightValue);
+        // console.log('width, height: ', width, height);
+        // console.log('Waste in width', wasteWidthArr);
+        // console.log('Waste in height', wasteHeightArr);
+
+    // const edgeWidthValue = wasteWidthArr
+    //     .filter((element) => +element.wasteWidth < 20 && element.repeat === 1) //Find objects with edge values (2500, 3200 etc.)
+    //     .map(({size}) => size)[0] || 0;
+    // const edgeHeightValue = wasteHeightArr
+    //     .filter((element) => +element.wasteHeight < 20 && element.repeat === 1)
+    //     .map(({size}) => size)[0] || 0;
 
     resultValuesObj.edgeValues = [+edgeWidthValue, +edgeHeightValue];
 

@@ -1,25 +1,17 @@
-function resultMsg(resultObj, currentMaterial, checkboxState) {
-    let isUnderside = false;
+function resultMsg(resultObj, checkboxState, edgeValue) {
+    let isUnderside = checkboxState['center-1'];
     let wasteMsg = '';
     let minWasteMsg = '';
     let tip = '';
 
-    if (checkboxState['center-1']) {
-        isUnderside = true;
-    }
-
-    console.log(checkboxState);
+    console.log('isUnderside', isUnderside);
 
     const {
         waste,
         minWaste,
         parts,
-        materialSize,
-        edgeValues
+        materialSize
     } = resultObj;
-
-    const edgeValue1 = edgeValues[0];
-    const edgeValue2 = edgeValues[1];
 
     if (waste < 1) {
         wasteMsg = `Без отхода (${waste} м²)`;
@@ -33,14 +25,16 @@ function resultMsg(resultObj, currentMaterial, checkboxState) {
         minWasteMsg = `Минимальный отход ${minWaste} м² из ${parts} частей на материале ${materialSize} мм`;
     }
 
-    if (edgeValue1 > 0 || edgeValue2 > 0 && currentMaterial.size.includes(edgeValue1) && waste > 1) {
-        console.log(isUnderside);
-        if (checkboxState['center-1']) {
-            tip = `Можно уменьшить на 20 мм и наклеить подворот`;
-            console.log('YESS'); //!!
-        } else {
-            tip = `Можно уменьшить на 20 мм`;
-        }
+    if (waste > 1 && edgeValue > 0 && isUnderside
+        || waste < 1 && edgeValue > 0 && isUnderside
+    ) {
+        tip = `Можно уменьшить на ${edgeValue} мм и наклеить подворот`;
+    } else if (waste > 1 && edgeValue > 0 && !isUnderside
+        || waste < 1 && edgeValue > 0 && !isUnderside
+    ) {
+        tip = `Можно уменьшить на ${edgeValue} мм`;
+    } else {
+        tip = ``;
     }
 
     return {

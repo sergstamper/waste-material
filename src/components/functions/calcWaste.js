@@ -6,7 +6,7 @@ function calcWaste(width, height, material) {
   const length = currentSizeArr.length-1;
   let currentWidth = +width;
   let currentHeight = +height;
-  let repeat = 1
+  // let repeat = 1 //Why repeat is there?
 
   if (currentWidth > +currentSizeArr[length] 
     && currentHeight > +currentSizeArr[length]) {
@@ -28,11 +28,21 @@ function calcWaste(width, height, material) {
     currentHeight = temp;
   }
 
-  const wasteInWidthArr = formingResArr(currentWidth, currentHeight, material, repeat, 'width');
-  const wasteInHeightArr = formingResArr(currentWidth, currentHeight, material, repeat, 'height');
+  console.log('currentWidth: ', currentWidth);
+  console.log('currentHeight: ', currentHeight);
+
+  const wasteInWidthArr = formingResArr(currentWidth, currentHeight, material, 'width'); //Why I transit repeat here?
+  const wasteInHeightArr = formingResArr(currentWidth, currentHeight, material, 'height');
+
+  console.log('wasteInWidthArr: ', wasteInWidthArr);
+  console.log('wasteInHeightArr: ', wasteInHeightArr);
 
   const filteredWasteInWidthArr = filterMinWaste(wasteInWidthArr, 'wasteWidth');
   const filteredWasteInHeightArr = filterMinWaste(wasteInHeightArr, 'wasteHeight');
+
+  console.log('filteredWasteInWidthArr: ', filteredWasteInWidthArr);
+  console.log('filteredWasteInHeightArr: ', filteredWasteInHeightArr);
+  console.log('------------------------');
 
   return { filteredWasteInWidthArr, filteredWasteInHeightArr };
 }
