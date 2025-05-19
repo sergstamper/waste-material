@@ -67,6 +67,7 @@ function App() {
 
   function handleOptionsChange(event) {
     const materialValue = event.target.value;
+    setCheckboxState(initialCheckboxState);
     materials.forEach((material) => {
       if (material.name === materialValue) {
         setCurrentMaterial(material);
