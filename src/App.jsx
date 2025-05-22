@@ -9,11 +9,15 @@ import Recommendation from './components/Recommendation/Recommendation';
 import Button from './components/Button/Button';
 import Result from './components/Result/Result';
 import CanvasVariation from './components/CanvasVariation/CanvasVariation';
+import Checkbox1440 from './components/Checkbox1440/Checkbox1440';
+
 import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
 import calcWaste from './components/functions/calcWaste';
 import makeResult from './components/functions/makeResult';
 import resultMsg from './components/functions/resultMsg';
+import edgeValues from './components/functions/edgeValues';
+import filterMaterial from './components/functions/filterMaterial';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -24,7 +28,6 @@ function App() {
   const [trueHeight, setTrueHeight] = useState("");
   const [result, setResult] = useState({});
   const [done, setDone] = useState(false);
-  // const [result, setResult] = useState({ wasteInWidth: [], wasteInHeight: [] });
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
   const [canvasOption, setCanvasOption] = useState('zero');
@@ -32,6 +35,7 @@ function App() {
   const [isBanner, setIsBanner] = useState(false);
   const [isCanvas, setIsCanvas] = useState(false);
   const [isStandardChecked, setIsStandardChecked] = useState(false);
+  const [is1440Checked, setIs1440Checked] = useState(false);
 
   const initialCheckboxState = {
     'top-1': false,
@@ -139,6 +143,11 @@ function App() {
     });
   };
 
+  function handleCheckbox1440Change(event) {
+    const { checked } = event.target;
+    setIs1440Checked(checked);
+  }
+
   function updateDimensions(checkboxState) {
     let { tempWidth, tempHeight } = calcDimensions(checkboxState, width, height);
 
@@ -164,65 +173,19 @@ function App() {
     handleCanvasChoise(canvasOption, isChecked);
   };
 
-  function edgeValues(width, height, size) {
-    const valuesArr = [];
-    let widthSub = -1;
-    let heightSub = -1;
-
-    for (let i = 0; i < size.length; i++) {
-      if (+size[i + 1] - +size[i] >= 400) {
-        valuesArr.push(size[i] - 20);
-      }
-    }
-
-    valuesArr.push(size[size.length - 1] - 20);
-
-    console.log('Edge values: ', valuesArr);
-
-    for (let i = 0; i < valuesArr.length; i++) {
-      const widthVal = width - valuesArr[i];
-      const heightVal = height - valuesArr[i];
-
-      if (widthVal >= 0 && widthVal < 50) {
-        widthSub = widthVal;
-      }
-
-      if (heightVal >= 0 && heightVal < 50) {
-        heightSub = heightVal;
-      }
-    }
-    
-    if (widthSub !== -1 && heightSub !== -1) {
-      if (widthSub > heightSub) {
-        return heightSub;
-      } else {
-        return widthSub;
-      }
-    } else if (widthSub !== -1) {
-      return widthSub;
-    } else if (heightSub !== -1) {
-      return heightSub;
-    }
-
-    return -1
-  }
-
   function calculate() {
+    const currentFilteredMaterial = filterMaterial(currentMaterial, is1440Checked)
+
     const {
       filteredWasteInWidthArr, 
       filteredWasteInHeightArr
-    } = calcWaste(trueWidth, trueHeight, currentMaterial);
+    } = calcWaste(trueWidth, trueHeight, currentFilteredMaterial);
 
-    const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr, width, height, currentMaterial.size);
+    const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr, width, height, currentFilteredMaterial.size);
 
-    const edgeValue = edgeValues(width, height, currentMaterial.size);
+    const edgeValue = edgeValues(width, height, currentFilteredMaterial.size);
+    
     console.log(edgeValue);
-    // const messageObj = resultMsg(resultObj, currentMaterial)
-
-    // console.log(currentMaterial);
-    // console.log(resultObj);
-
-    // setResult(resultObj);
 
     const resMsg = resultMsg(resultObj, checkboxState, edgeValue);
     setResult(resMsg);
@@ -247,6 +210,7 @@ function App() {
           setHeight(event.target.value);
           setTrueHeight(event.target.value);
         }} />
+      <Checkbox1440 checked={checkboxState['checkbox-1440']} onChange={handleCheckbox1440Change} />
       <Display sizes={currentMaterial.size} />
       <BannerVariation 
         key={activeGroup}

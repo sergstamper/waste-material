@@ -6,7 +6,6 @@ function calcWaste(width, height, material) {
   const length = currentSizeArr.length-1;
   let currentWidth = +width;
   let currentHeight = +height;
-  // let repeat = 1 //Why repeat is there?
 
   if (currentWidth > +currentSizeArr[length] 
     && currentHeight > +currentSizeArr[length]) {
