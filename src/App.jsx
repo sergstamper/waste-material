@@ -87,13 +87,15 @@ function App() {
 
   function checkMaterial(type) {
     if (type === 'banner') {
-      setIsBanner(true);
       setCheckboxState(initialCheckboxState);
+      setIsBanner(true);
       setIsCanvas(false);
     } else if (type === 'canvas') {
+      setCheckboxState(initialCheckboxState);
       setIsBanner(false);
       setIsCanvas(true);
     } else{
+      setCheckboxState(initialCheckboxState);
       setIsBanner(false);
       setIsCanvas(false);
     }

@@ -4,7 +4,7 @@ function Result({ result, done }) {
   return (
     <div className="result">
       <h2>Result</h2>
-      <p>Отход: {wasteMsg || 0}</p>
+      <p>{wasteMsg || ''}</p>
       {done ? 
         <div>
           <p>{minWasteMsg}</p>

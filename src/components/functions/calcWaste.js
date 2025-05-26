@@ -10,21 +10,15 @@ function calcWaste(width, height, material) {
   if (currentWidth > +currentSizeArr[length] 
     && currentHeight > +currentSizeArr[length]) {
     if (currentHeight > currentWidth) {
-      const temp = currentWidth;
-      currentWidth = currentHeight;
-      currentHeight = temp;
+      [currentWidth, currentHeight] = [currentHeight, currentWidth];    
     }
   } else if (currentWidth > +currentSizeArr[length] 
   || currentHeight > +currentSizeArr[length]) {
     if (currentHeight > currentWidth) {
-      const temp = currentWidth;
-      currentWidth = currentHeight;
-      currentHeight = temp;
+      [currentWidth, currentHeight] = [currentHeight, currentWidth];    
     }
   } else if (currentHeight > currentWidth) {
-    const temp = currentWidth;
-    currentWidth = currentHeight;
-    currentHeight = temp;
+    [currentWidth, currentHeight] = [currentHeight, currentWidth];  
   }
 
   console.log('currentWidth: ', currentWidth);
