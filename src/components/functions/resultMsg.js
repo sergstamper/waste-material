@@ -8,6 +8,7 @@ function resultMsg(resultObj, checkboxState, edgeValue) {
 
     console.log('isUnderside', isUnderside);
     console.log('isPocket', isPocket);
+    console.log('edgeValue', edgeValue);
 
     const {
         waste,
@@ -39,13 +40,15 @@ function resultMsg(resultObj, checkboxState, edgeValue) {
     } 
 
     if (isUnderside) {
-        if (waste > 1 && edgeValue > 0 || waste < 1 && edgeValue > 0) {
+        if (edgeValue > -80 && edgeValue <= 0) {
+            tip = `Можно уменьшить на ${80 + edgeValue} мм или наклеить подворот`;
+        } else if (edgeValue > 0 && edgeValue <= 50) {
             tip = `Можно уменьшить на ${edgeValue} мм и наклеить подворот`;
         } else {
             tip = ``;
         }
     } else if (!isPocket) {
-        if (waste > 1 && edgeValue > 0 || waste < 1 && edgeValue > 0) {
+        if (edgeValue > 0 && edgeValue <= 50) {
             tip = `Можно уменьшить на ${edgeValue} мм`;
         } else {
             tip = ``;
@@ -54,6 +57,10 @@ function resultMsg(resultObj, checkboxState, edgeValue) {
 
     if (!solid) {
         wasteMsg = ``; //!!!
+    } else {
+        if (waste < 1) {
+            tip = ``;
+        }
     }
 
     return {

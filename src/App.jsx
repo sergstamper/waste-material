@@ -94,7 +94,7 @@ function App() {
       setCheckboxState(initialCheckboxState);
       setIsBanner(false);
       setIsCanvas(true);
-    } else{
+    } else {
       setCheckboxState(initialCheckboxState);
       setIsBanner(false);
       setIsCanvas(false);

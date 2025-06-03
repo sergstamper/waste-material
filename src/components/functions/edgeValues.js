@@ -1,7 +1,7 @@
 function edgeValues(width, height, size) {
   const valuesArr = [];
-  let widthSub = -1;
-  let heightSub = -1;
+  let widthSub;
+  let heightSub;
 
   for (let i = 0; i < size.length; i++) {
     if (+size[i + 1] - +size[i] >= 400) {
@@ -17,28 +17,33 @@ function edgeValues(width, height, size) {
     const widthVal = width - valuesArr[i];
     const heightVal = height - valuesArr[i];
 
-    if (widthVal >= 0 && widthVal < 50) {
+    console.log('widthVal: ', widthVal);
+    console.log('heightVal: ', heightVal);
+
+    if (widthVal > -80 && widthVal <= 50) {
       widthSub = widthVal;
     }
 
-    if (heightVal >= 0 && heightVal < 50) {
+    if (heightVal > -80 && heightVal <= 50) {
       heightSub = heightVal;
     }
   }
+  console.log('--heightSub: ', heightSub);
+  console.log('--widthSub: ', widthSub);
   
-  if (widthSub !== -1 && heightSub !== -1) {
+  if (widthSub !== undefined && heightSub !== undefined) {
     if (widthSub > heightSub) {
       return heightSub;
     } else {
       return widthSub;
     }
-  } else if (widthSub !== -1) {
+  } else if (widthSub !== undefined) {
     return widthSub;
-  } else if (heightSub !== -1) {
+  } else if (heightSub !== undefined) {
     return heightSub;
   }
 
-  return -1
+  // return 100;
 }
 
 export default edgeValues;
