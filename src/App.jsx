@@ -183,13 +183,13 @@ function App() {
       filteredWasteInHeightArr
     } = calcWaste(trueWidth, trueHeight, currentFilteredMaterial);
 
-    const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr, width, height, currentFilteredMaterial.size);
+    const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
 
     const edgeValue = edgeValues(width, height, currentFilteredMaterial.size);
     
     console.log(edgeValue);
 
-    const resMsg = resultMsg(resultObj, checkboxState, edgeValue);
+    const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
     setResult(resMsg);
 
     setDone(true);

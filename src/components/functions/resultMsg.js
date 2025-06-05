@@ -1,4 +1,4 @@
-function resultMsg(resultObj, checkboxState, edgeValue) {
+function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     const isUnderside = checkboxState['center-1'];
     const isPocket = checkboxState['center-2'];
 
@@ -56,11 +56,20 @@ function resultMsg(resultObj, checkboxState, edgeValue) {
     }
 
     if (!solid) {
-        wasteMsg = ``; //!!!
+        wasteMsg = ``;
     } else {
         if (waste < 1) {
             tip = ``;
         }
+    }
+
+    if (isCanvas && !solid) {
+        wasteMsg = ``;
+        minWasteMsg = ``;
+        tip = `Не помещается на материал`;
+    } else if (isCanvas && solid && waste > 1) {
+        tip = ``;
+        minWasteMsg = ``;
     }
 
     return {
