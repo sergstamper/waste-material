@@ -1,10 +1,10 @@
 import './BannerVariation.css'
 
 function BannerVariation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup, isBanner }) {
-  const appearance = isBanner ? 'container' : 'hidden';
+  // const appearance = isBanner ? 'container' : 'hidden';
 
   return (
-    <div className={appearance}>
+    <div className="container">
       <div className="group">
         <label>
           <input 

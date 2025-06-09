@@ -1,10 +1,10 @@
 import './CanvasVariation.css';
 
 function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardCheckboxChange } ) {
-    const appearance = isCanvas ? 'container' : 'hidden';
+    // const appearance = isCanvas ? 'container' : 'hidden';
 
     return (
-        <div className={appearance}>
+        <div className="container">
             <label>
                 <input 
                     type="radio" 

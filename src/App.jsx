@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
-import Options from './components/Options/Options';
-import Input from './components/Input/Input';
-import Display from './components/Display/Display';
-import BannerVariation from './components/BannerVariation/BannerVariation';
-import Recommendation from './components/Recommendation/Recommendation';
-import Button from './components/Button/Button';
+import InputData from './components/InputData/InputData';
+import MaterialOptions from './components/MaterialOptions/MaterialOptions';
+import ButtonsBlock from './components/ButtonsBlock/ButtonsBlock';
 import Result from './components/Result/Result';
-import CanvasVariation from './components/CanvasVariation/CanvasVariation';
-import Checkbox1440 from './components/Checkbox1440/Checkbox1440';
+// import Options from './components/Options/Options';
+// import Input from './components/Input/Input';
+// import Display from './components/Display/Display';
+// import BannerVariation from './components/BannerVariation/BannerVariation';
+// import Recommendation from './components/Recommendation/Recommendation';
+// import Button from './components/Button/Button';
+// import CanvasVariation from './components/CanvasVariation/CanvasVariation';
+// import Checkbox1440 from './components/Checkbox1440/Checkbox1440';
 
 import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
@@ -68,6 +71,19 @@ function App() {
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function handleSizeChange(event) {
+    const { value, id } = event.target;
+    if (id === 'width') {
+      setWidth(value);
+      setTrueWidth(value);
+    } else if (id === 'height') {
+      setHeight(value);
+      setTrueHeight(value);
+    }
+
+    width && height ? setDone(true) : setDone(false);
+  }
 
   function handleOptionsChange(event) {
     const materialValue = event.target.value;
@@ -192,48 +208,85 @@ function App() {
     const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
     setResult(resMsg);
 
-    setDone(true);
   }
 
   return (
     <>
-      <Options 
+      <InputData 
         materials={materials} 
-        onChange={(event) => handleOptionsChange(event)} />
-      <Input 
-        value={width} 
-        onChange={(event) => {
-          setWidth(event.target.value);
-          setTrueWidth(event.target.value);
-        }} />
-      <Input 
-        value={height} 
-        onChange={(event) => {
-          setHeight(event.target.value);
-          setTrueHeight(event.target.value);
-        }} />
-      <Checkbox1440 checked={checkboxState['checkbox-1440']} onChange={handleCheckbox1440Change} />
-      <Display sizes={currentMaterial.size} />
-      <BannerVariation 
-        key={activeGroup}
+        width={width} 
+        height={height} 
+        sizes={currentMaterial.size}
+        onOptionChange={(event) => handleOptionsChange(event)} 
+        onWidthChange={(event) => handleSizeChange(event)}
+        onHeightChange={(event) => handleSizeChange(event)}
+      />
+
+      <MaterialOptions
         isBanner={isBanner}
+        isCanvas={isCanvas}
+        keyGroup={activeGroup}
         checkboxState={checkboxState}
         activeGroup={activeGroup}
         onCheckboxChange={handleCheckboxChange}
         onRadioChange={handleRadioChange}
+        onCanvasCheckboxChange={handleCanvasOptionChange} 
+        isStandard={isStandardChecked} 
+        onStandardChange={handleStandardCheckboxChange} 
+        onCheckbox1440Change={handleCheckbox1440Change}
+        checkbox1440State={checkboxState['checkbox-1440']}
       />
-      <CanvasVariation 
-        isCanvas={isCanvas} 
-        onChange={handleCanvasOptionChange} 
-        isStandardChecked={isStandardChecked} 
-        onStandardCheckboxChange={handleStandardCheckboxChange} 
+
+      <ButtonsBlock
+        onReset={() => console.log('Button reset')}
+        onCalculate={() => calculate()}
       />
-      <Button onClick={() => console.log('Button reset')} name="СБРОС" />
-      <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
+
       <Result result={result} done={done} />
-      <Recommendation />
     </>
   )
 }
 
 export default App
+
+// return (
+//   <>
+//     <InputData />
+//     <Options 
+//       materials={materials} 
+//       onChange={(event) => handleOptionsChange(event)} />
+//     <Input 
+//       value={width} 
+//       onChange={(event) => {
+//         setWidth(event.target.value);
+//         setTrueWidth(event.target.value);
+//       }} />
+//     <Input 
+//       value={height} 
+//       onChange={(event) => {
+//         setHeight(event.target.value);
+//         setTrueHeight(event.target.value);
+//       }} />
+//     <Checkbox1440 checked={checkboxState['checkbox-1440']} onChange={handleCheckbox1440Change} />
+//     <Display sizes={currentMaterial.size} />
+//     <BannerVariation 
+//       key={activeGroup}
+//       isBanner={isBanner}
+//       checkboxState={checkboxState}
+//       activeGroup={activeGroup}
+//       onCheckboxChange={handleCheckboxChange}
+//       onRadioChange={handleRadioChange}
+//     />
+//     <CanvasVariation 
+//       isCanvas={isCanvas} 
+//       onChange={handleCanvasOptionChange} 
+//       isStandardChecked={isStandardChecked} 
+//       onStandardCheckboxChange={handleStandardCheckboxChange} 
+//     />
+//     <Button onClick={() => console.log('Button reset')} name="СБРОС" />
+//     <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
+//     <Result result={result} done={done} />
+//     <Recommendation />
+//   </>
+// )
+// }
