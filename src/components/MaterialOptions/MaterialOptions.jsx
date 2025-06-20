@@ -3,6 +3,8 @@ import CanvasVariation from "../CanvasVariation/CanvasVariation";
 import Checkbox1440 from "../Checkbox1440/Checkbox1440";
 import PropTypes from "prop-types";
 
+import './MaterialOptions.css';
+
 function MaterialOptions({ 
         isBanner, 
         isCanvas, 
@@ -29,6 +31,9 @@ function MaterialOptions({
                         onCheckboxChange={onCheckboxChange}
                         onRadioChange={onRadioChange}
                     />
+
+                    <div className="divider"></div>
+                    
                     <Checkbox1440
                         checked={checkbox1440State}
                         onChange={onCheckbox1440Change}

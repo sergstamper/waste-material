@@ -5,14 +5,6 @@ import InputData from './components/InputData/InputData';
 import MaterialOptions from './components/MaterialOptions/MaterialOptions';
 import ButtonsBlock from './components/ButtonsBlock/ButtonsBlock';
 import Result from './components/Result/Result';
-// import Options from './components/Options/Options';
-// import Input from './components/Input/Input';
-// import Display from './components/Display/Display';
-// import BannerVariation from './components/BannerVariation/BannerVariation';
-// import Recommendation from './components/Recommendation/Recommendation';
-// import Button from './components/Button/Button';
-// import CanvasVariation from './components/CanvasVariation/CanvasVariation';
-// import Checkbox1440 from './components/Checkbox1440/Checkbox1440';
 
 import canvasChoise from './components/functions/canvasChoise';
 import calcDimensions from './components/functions/calcDimensions';
@@ -25,10 +17,10 @@ import filterMaterial from './components/functions/filterMaterial';
 function App() {
   const [materials, setMaterials] = useState([]);
   const [currentMaterial, setCurrentMaterial] = useState([]);
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
-  const [trueWidth, setTrueWidth] = useState("");
-  const [trueHeight, setTrueHeight] = useState("");
+  const [width, setWidth] = useState('');
+  const [height, setHeight] = useState('');
+  const [trueWidth, setTrueWidth] = useState('');
+  const [trueHeight, setTrueHeight] = useState('');
   const [result, setResult] = useState({});
   const [done, setDone] = useState(false);
   const [checkboxState, setCheckboxState] = useState({});
@@ -74,6 +66,10 @@ function App() {
 
   function handleSizeChange(event) {
     const { value, id } = event.target;
+    const regExp = /^$|^(0|[1-9]\d*)$/;
+    
+    if (value !== '' && !regExp.test(value)) return;
+
     if (id === 'width') {
       setWidth(value);
       setTrueWidth(value);
@@ -81,8 +77,6 @@ function App() {
       setHeight(value);
       setTrueHeight(value);
     }
-
-    width && height ? setDone(true) : setDone(false);
   }
 
   function handleOptionsChange(event) {
@@ -120,9 +114,9 @@ function App() {
   const handleRadioChange = (event) => {
     const newGroup = event.target.value;
     setActiveGroup(newGroup);
-    setCheckboxState(initialCheckboxState) //!!
-    setTrueWidth(width); //!!
-    setTrueHeight(height); //!!
+    setCheckboxState(initialCheckboxState);
+    setTrueWidth(width);
+    setTrueHeight(height);
   };
 
   const handleCheckboxChange = (event) => {
@@ -133,17 +127,14 @@ function App() {
       const updatedState = { ...prevState };
 
       if (id.includes('center')) {
-        // Если изменяется центральный чекбокс, обновляем все чекбоксы в группе
         for (const key in updatedState) {
           if (key.endsWith(groupSuffix)) {
             updatedState[key] = checked;
           }
         }
       } else {
-        // Если изменяется ведомый чекбокс, обновляем его состояние
         updatedState[id] = checked;
 
-        // Проверяем, все ли ведомые чекбоксы активны
         const allChecked = Object.keys(updatedState).every((key) => {
           if (key.endsWith(groupSuffix) && !key.includes('center')) {
             return updatedState[key];
@@ -151,7 +142,6 @@ function App() {
           return true;
         });
 
-        // Обновляем состояние центрального чекбокса
         updatedState[`center${groupSuffix}`] = allChecked;
       }
 
@@ -192,21 +182,28 @@ function App() {
   };
 
   function calculate() {
-    const currentFilteredMaterial = filterMaterial(currentMaterial, is1440Checked)
+    if (width !== '' && height !== '') {
+      const currentFilteredMaterial = filterMaterial(currentMaterial, is1440Checked)
 
-    const {
-      filteredWasteInWidthArr, 
-      filteredWasteInHeightArr
-    } = calcWaste(trueWidth, trueHeight, currentFilteredMaterial);
+      const {
+        filteredWasteInWidthArr, 
+        filteredWasteInHeightArr
+      } = calcWaste(trueWidth, trueHeight, currentFilteredMaterial);
 
-    const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
+      const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
 
-    const edgeValue = edgeValues(width, height, currentFilteredMaterial.size);
-    
-    console.log(edgeValue);
+      const edgeValue = edgeValues(width, height, currentFilteredMaterial.size);
+      
+      console.log(edgeValue);
 
-    const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
-    setResult(resMsg);
+      const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
+      setResult(resMsg);
+
+      setDone(true);
+    } else {
+      setDone(false);
+      setResult({});
+    }
 
   }
 
@@ -247,46 +244,4 @@ function App() {
   )
 }
 
-export default App
-
-// return (
-//   <>
-//     <InputData />
-//     <Options 
-//       materials={materials} 
-//       onChange={(event) => handleOptionsChange(event)} />
-//     <Input 
-//       value={width} 
-//       onChange={(event) => {
-//         setWidth(event.target.value);
-//         setTrueWidth(event.target.value);
-//       }} />
-//     <Input 
-//       value={height} 
-//       onChange={(event) => {
-//         setHeight(event.target.value);
-//         setTrueHeight(event.target.value);
-//       }} />
-//     <Checkbox1440 checked={checkboxState['checkbox-1440']} onChange={handleCheckbox1440Change} />
-//     <Display sizes={currentMaterial.size} />
-//     <BannerVariation 
-//       key={activeGroup}
-//       isBanner={isBanner}
-//       checkboxState={checkboxState}
-//       activeGroup={activeGroup}
-//       onCheckboxChange={handleCheckboxChange}
-//       onRadioChange={handleRadioChange}
-//     />
-//     <CanvasVariation 
-//       isCanvas={isCanvas} 
-//       onChange={handleCanvasOptionChange} 
-//       isStandardChecked={isStandardChecked} 
-//       onStandardCheckboxChange={handleStandardCheckboxChange} 
-//     />
-//     <Button onClick={() => console.log('Button reset')} name="СБРОС" />
-//     <Button onClick={() => calculate()} name="РАССЧИТАТЬ" />
-//     <Result result={result} done={done} />
-//     <Recommendation />
-//   </>
-// )
-// }
+export default App;

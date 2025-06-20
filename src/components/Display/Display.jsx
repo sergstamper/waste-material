@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
 
+import './Display.css';
+
 function Display({sizes}) {
     return (
-        <div>
-            <h2>Display</h2>
-            <ul>
-                {sizes && sizes.map((size, index) => (
-                    <li key={index}>{size}</li>
-                ))}
-            </ul>
-            <ul>
-                {sizes && sizes.map((size, index) => (
-                    <li key={index}>{size-20}</li>
-                ))}
-            </ul>
+        <div className="display">
+            <div>
+                <p>Размеры</p>
+                <ul className='sizes'>
+                    {sizes && sizes.map((size, index) => (
+                        <li key={index}>{size}</li>
+                    ))}
+                </ul>
+            </div>
+            <div>
+                <p>Запечатка</p>
+                <ul className='sizes'>
+                    {sizes && sizes.map((size, index) => (
+                        <li key={index}>{size-20}</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 };

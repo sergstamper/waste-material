@@ -1,0 +1,15 @@
+.banner-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    gap: 20px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.divider {
+    width: 1px;
+    height: 80px;
+    background-color: lightgray;
+}

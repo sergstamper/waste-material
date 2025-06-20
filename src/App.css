@@ -1,7 +1,10 @@
 #root {
-  max-width: 600px;
+  width: 630px;
+  height: 630px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 30px 40px;
   text-align: center;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: 'Calibri', sans-serif;
 }
-

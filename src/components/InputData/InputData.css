@@ -1,0 +1,23 @@
+.materials {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+.input-data {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.inputs {
+    display: flex;
+    gap: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 25px
+}

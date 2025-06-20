@@ -1,0 +1,32 @@
+.buttons-block {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 130px;
+    height: 40px;
+}
+
+.button-reset {
+    background-color: #e67f7f;
+    color: #333;
+}
+
+.button-reset:hover {
+    background-color: darken(#f0f0f0, 10%);
+}
+
+.button-calc {
+    background-color: #0a98cf;
+    color: white;
+}
+
+.button-calc:hover {
+    background-color: darken(#0a98cf, 10%);
+}

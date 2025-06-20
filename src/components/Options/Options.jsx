@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 
+import './Options.css';
+
 function Options({ materials, onChange }) {
   return (
     <div>
-      <div className='select'>
+      <div className='select-material'>
           <label htmlFor="options">Материал</label>
           <select onChange={onChange} className="options" type="text" id="options">
               {materials.map((material, index) => (

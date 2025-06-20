@@ -1,3 +1,5 @@
+import './Checkbox1440.css';
+
 function Checkbox1440({ checked, onChange }) {
   return (
     <div className="checkbox">
@@ -7,7 +9,7 @@ function Checkbox1440({ checked, onChange }) {
         checked={checked}
         onChange={onChange}
       />
-      <label htmlFor="checkbox-1440">Качеcтво печати 1440 dpi</label>
+      <label htmlFor="checkbox-1440">Печать <br /> 1440 dpi</label>
     </div>
   );
 }
