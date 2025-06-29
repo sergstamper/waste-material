@@ -1,14 +1,22 @@
-function Result({ result, done }) {
-  const { wasteMsg, minWasteMsg, tip } = result;
+import Message from "../Message/Message";
+import ResButtons from "../ResButtons/ResButtons";
 
+function Result({ result, done, onClick, name, id, btnClass }) {
   return (
     <div className="result">
-      <h2>Result</h2>
-      <p>{wasteMsg || ''}</p>
+      <p>{result.wasteMsg || ''}</p>
       {done ? 
         <div>
-          <p>{minWasteMsg}</p>
-          <p>{tip || null}</p>
+          <Message 
+            done={done}
+            result={result}
+          />
+          <ResButtons 
+            onClick={onClick}
+            name={name}
+            id={id}
+            className={btnClass}
+          />
         </div>
         : null
       }

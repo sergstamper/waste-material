@@ -23,7 +23,7 @@ function MaterialOptions({
     return (
         <>
             {isBanner && (
-                <div className="banner-options">
+                <div className="variation-container banner-options">
                     <BannerVariation
                         keyGroup={keyGroup}
                         checkboxState={checkboxState}
@@ -42,7 +42,7 @@ function MaterialOptions({
             )}
 
             {isCanvas && (
-                <div className="canvas-options">
+                <div className="variation-container canvas-options">
                     <CanvasVariation
                         onChange={onCanvasCheckboxChange}
                         isStandardChecked={isStandard}

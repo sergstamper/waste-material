@@ -1,9 +1,9 @@
-.container {
+/* .container {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
+  justify-content: space-between;
+  gap: 25px;
+} */
 
 .group {
   display: flex;

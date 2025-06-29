@@ -24,7 +24,7 @@ function calcWaste(width, height, material) {
   console.log('currentWidth: ', currentWidth);
   console.log('currentHeight: ', currentHeight);
 
-  const wasteInWidthArr = formingResArr(currentWidth, currentHeight, material, 'width'); //Why I transit repeat here?
+  const wasteInWidthArr = formingResArr(currentWidth, currentHeight, material, 'width');
   const wasteInHeightArr = formingResArr(currentWidth, currentHeight, material, 'height');
 
   console.log('wasteInWidthArr: ', wasteInWidthArr);

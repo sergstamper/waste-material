@@ -1,2 +1,42 @@
+.btn {
+    width: 50%;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    color: white;
+    transition: 0.1s;
+    font-family: "Calibri", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+}
 
+.button-calc {
+    background-color: #55b19a;
+}
+
+.button-reset {
+    background-color: #d1836b;
+}
+
+.button-calc:hover {
+    background-color: #6ad8bc;
+    transition: 0.2s;
+}
+
+.button-reset:hover {
+    background-color: #f89c80;
+    transition: 0.2s;
+}
+
+.button-calc:active {
+    background-color: #449e88;
+    transition: 0.1s;
+}
+
+.button-reset:active {
+    background-color: #a05b46;
+    transition: 0.1s;
+}
 
