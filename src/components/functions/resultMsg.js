@@ -6,8 +6,6 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     let minWasteMsg = '';
     let tip = '';
 
-    console.log('isUnderside', isUnderside);
-    console.log('isPocket', isPocket);
     console.log('edgeValue', edgeValue);
 
     const {
@@ -18,6 +16,8 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
         materialSize
     } = resultObj;
 
+    const partWord = parts % 10 === 1 ? 'части' : 'частей';
+
     if (waste < 1) {
         wasteMsg = `Без отхода (${waste} м²)`;
     } else {
@@ -25,13 +25,13 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     }
 
     if (minWaste < 1) {
-        minWasteMsg = `Без отхода (${minWaste} м²) из ${parts} частей на материале ${materialSize} мм`;
+        minWasteMsg = `Без отхода (${minWaste} м²) из ${parts} ${partWord} на материале ${materialSize} мм`;
     } else {
-        minWasteMsg = `Минимальный отход ${minWaste} м² из ${parts} частей на материале ${materialSize} мм`;
+        minWasteMsg = `Минимальный отход ${minWaste} м² из ${parts} ${partWord} на материале ${materialSize} мм`;
     }
 
     if (waste < 1 && solid) {
-        wasteMsg = `Без отхода (${waste} м²)`; //!!!
+        wasteMsg = `Без отхода (${waste} м²)`;
         minWasteMsg = ``;
     }
 
