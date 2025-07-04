@@ -1,8 +1,12 @@
-function ResButtons({ onClick, name, id, btnClass }) {
+import Button from '../Button/Button';
+
+import './ResButtons.css';
+
+function ResButtons({ onClick }) {
     return (
         <div className="res-buttons">
-            <button className="btn btn-primary" onClick={onClick} name={name} id={id} className={btnClass}>Button 1</button>
-            <button className="btn btn-secondary" onClick={onClick} name={name} id={id} className={btnClass}>Button 2</button>
+            <Button onClick={onClick} name='ВАРИАНТЫ' id='options' className="res-btn button-data" />
+            <Button onClick={onClick} name='КОПИРОВАТЬ' id='copy' className="res-btn button-copy" />
         </div>
     );
 }

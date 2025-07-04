@@ -31,6 +31,7 @@ function App() {
   const [isCanvas, setIsCanvas] = useState(false);
   const [isStandardChecked, setIsStandardChecked] = useState(false);
   const [is1440Checked, setIs1440Checked] = useState(false);
+  const [isReset, setIsReset] = useState(false);
 
   const initialCheckboxState = {
     'top-1': false,
@@ -62,7 +63,7 @@ function App() {
         setDone(false);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isReset]);
 
   function handleSizeChange(event) {
     const { value, id } = event.target;
@@ -204,13 +205,34 @@ function App() {
       setDone(false);
       setResult({});
     }
+  }
 
+  function reset() {
+    setIsReset(!isReset)
+    // setCurrentMaterial(materials[0]);
+    // setWidth('');
+    // setHeight('');
+    // setTrueWidth('');
+    // setTrueHeight('');
+    // setCheckboxState(initialCheckboxState);
+    // setResult({});
+    // setDone(false);
+    // checkMaterial();
+
+    
+    // setActiveGroup('underside');
+    // setCanvasOption('zero');
+    // setIsBanner(false);
+    // setIsCanvas(false);
+    // setIsStandardChecked(false);
+    // setIs1440Checked(false);
   }
 
   return (
     <>
       <InputData 
         materials={materials} 
+        currentMaterial={currentMaterial}
         width={width} 
         height={height} 
         sizes={currentMaterial.size}
@@ -235,7 +257,7 @@ function App() {
       />
 
       <ButtonsBlock
-        onReset={() => console.log('Button reset')}
+        onReset={() => reset()}
         onCalculate={() => calculate()}
       />
 

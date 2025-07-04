@@ -16,7 +16,7 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
         materialSize
     } = resultObj;
 
-    const partWord = parts % 10 === 1 ? 'части' : 'частей';
+    const partWord = parts % 10 === 1 && parts !== 11 ? 'части' : 'частей';
 
     if (waste < 1) {
         wasteMsg = `Без отхода (${waste} м²)`;

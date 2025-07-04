@@ -1,12 +1,13 @@
 import Message from "../Message/Message";
 import ResButtons from "../ResButtons/ResButtons";
 
+import "./Result.css";
+
 function Result({ result, done, onClick, name, id, btnClass }) {
   return (
-    <div className="result">
-      <p>{result.wasteMsg || ''}</p>
+    <>
       {done ? 
-        <div>
+        <div className="result">
           <Message 
             done={done}
             result={result}
@@ -20,7 +21,7 @@ function Result({ result, done, onClick, name, id, btnClass }) {
         </div>
         : null
       }
-    </div>
+    </>
   );
 }
 
