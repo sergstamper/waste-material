@@ -31,10 +31,7 @@ Options.propTypes = {
     })
   ).isRequired,
   onChange: PropTypes.func.isRequired,
-  currentMaterial: PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-  }),
+  currentMaterial: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 export default Options;

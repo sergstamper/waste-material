@@ -13,6 +13,8 @@ import makeResult from './components/functions/makeResult';
 import resultMsg from './components/functions/resultMsg';
 import edgeValues from './components/functions/edgeValues';
 import filterMaterial from './components/functions/filterMaterial';
+import Modal from './components/Modal/Modal';
+import DispalyVariants from './components/DispalyVariants/DisplayVariants';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -26,12 +28,14 @@ function App() {
   const [checkboxState, setCheckboxState] = useState({});
   const [activeGroup, setActiveGroup] = useState('underside');
   const [canvasOption, setCanvasOption] = useState('zero');
+  const [widthWaste, setWidthWaste] = useState([]);
+  const [heightWaste, setHeightWaste] = useState([]);
 
   const [isBanner, setIsBanner] = useState(false);
   const [isCanvas, setIsCanvas] = useState(false);
   const [isStandardChecked, setIsStandardChecked] = useState(false);
   const [is1440Checked, setIs1440Checked] = useState(false);
-  const [isReset, setIsReset] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initialCheckboxState = {
     'top-1': false,
@@ -63,7 +67,7 @@ function App() {
         setDone(false);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReset]);
+  }, []);
 
   function handleSizeChange(event) {
     const { value, id } = event.target;
@@ -191,12 +195,13 @@ function App() {
         filteredWasteInHeightArr
       } = calcWaste(trueWidth, trueHeight, currentFilteredMaterial);
 
+      setWidthWaste(filteredWasteInWidthArr);
+      setHeightWaste(filteredWasteInHeightArr);
+
       const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
 
       const edgeValue = edgeValues(width, height, currentFilteredMaterial.size);
       
-      console.log(edgeValue);
-
       const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
       setResult(resMsg);
 
@@ -208,24 +213,20 @@ function App() {
   }
 
   function reset() {
-    setIsReset(!isReset)
-    // setCurrentMaterial(materials[0]);
-    // setWidth('');
-    // setHeight('');
-    // setTrueWidth('');
-    // setTrueHeight('');
-    // setCheckboxState(initialCheckboxState);
-    // setResult({});
-    // setDone(false);
-    // checkMaterial();
-
+    setCurrentMaterial(materials[0]);
+    setWidth('');
+    setHeight('');
+    setTrueWidth('');
+    setTrueHeight('');
+    setCheckboxState(initialCheckboxState);
+    setResult({});
+    setDone(false);
+    setIsBanner(false);
+    setIsCanvas(false);
+    setIsStandardChecked(false);
+    setIs1440Checked(false);
     
-    // setActiveGroup('underside');
-    // setCanvasOption('zero');
-    // setIsBanner(false);
-    // setIsCanvas(false);
-    // setIsStandardChecked(false);
-    // setIs1440Checked(false);
+    checkMaterial(materials[0].type);
   }
 
   return (
@@ -261,7 +262,27 @@ function App() {
         onCalculate={() => calculate()}
       />
 
-      <Result result={result} done={done} />
+      <Result 
+        result={result} 
+        done={done}
+        onClick={() => setIsModalOpen(true)} 
+      />
+
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <div className="info-block">
+            <DispalyVariants 
+              waste={widthWaste}
+              className={'info-vertical-list'}
+              title={'По вертикали'}
+            />
+
+            <DispalyVariants 
+              waste={heightWaste}
+              className={'info-horizontal-list'}
+              title={'По горизонтали'}
+            />
+          </div>
+        </Modal>
     </>
   )
 }

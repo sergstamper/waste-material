@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 function InputData({ 
     materials, 
+    currentMaterial,
     width, 
     height, 
     onOptionChange, 
@@ -21,7 +22,8 @@ function InputData({
         <div className="input-data">
           <Options 
             materials={materials} 
-            onChange={onOptionChange} />
+            onChange={onOptionChange}
+            currentMaterial={currentMaterial} />
             <div className="inputs">
               <Input 
                 value={width} 
@@ -45,6 +47,7 @@ function InputData({
 
 InputData.propTypes = {
   materials: PropTypes.array.isRequired,
+  currentMaterial: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onOptionChange: PropTypes.func.isRequired,
