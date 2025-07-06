@@ -62,21 +62,38 @@
 }
 
 .button-data:hover {
-    background-color: #6ad8bc;
+    background-color: #7eadd3;
     transition: 0.2s;
 }
 
 .button-copy:hover {
-    background-color: #f89c80;
+    background-color: #dddddd;
     transition: 0.2s;
 }
 
 .button-data:active {
-    background-color: #449e88;
+    background-color: #3f6e94;
     transition: 0.1s;
 }
 
 .button-copy:active {
+    background-color: #b9b9b9;
+    transition: 0.1s;
+}
+
+.modal-close-button {
+    background-color: #d1836b;
+    width: 150px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.modal-close-button:hover {
+    background-color: #f89c80;
+    transition: 0.2s;
+}
+
+.modal-close-button:active {
     background-color: #a05b46;
     transition: 0.1s;
 }

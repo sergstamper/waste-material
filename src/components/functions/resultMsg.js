@@ -19,19 +19,19 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     const partWord = parts % 10 === 1 && parts !== 11 ? 'части' : 'частей';
 
     if (waste < 1) {
-        wasteMsg = `Без отхода (${waste} м²)`;
+        wasteMsg = `Без отхода (${waste} м²).`;
     } else {
-        wasteMsg = `Отход: ${waste} м²`;
+        wasteMsg = `Отход: ${waste} м².`;
     }
 
     if (minWaste < 1) {
-        minWasteMsg = `Без отхода (${minWaste} м²) из ${parts} ${partWord} на материале ${materialSize} мм`;
+        minWasteMsg = `Без отхода (${minWaste} м²) из ${parts} ${partWord} на материале ${materialSize} мм.`;
     } else {
-        minWasteMsg = `Минимальный отход ${minWaste} м² из ${parts} ${partWord} на материале ${materialSize} мм`;
+        minWasteMsg = `Минимальный отход ${minWaste} м² из ${parts} ${partWord} на материале ${materialSize} мм.`;
     }
 
     if (waste < 1 && solid) {
-        wasteMsg = `Без отхода (${waste} м²)`;
+        wasteMsg = `Без отхода (${waste} м²).`;
         minWasteMsg = ``;
     }
 
@@ -41,15 +41,15 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
 
     if (isUnderside) {
         if (edgeValue > -80 && edgeValue <= 0) {
-            tip = `Можно уменьшить на ${80 + edgeValue} мм или наклеить подворот`;
+            tip = `Можно уменьшить на ${80 + edgeValue} мм или наклеить подворот.`;
         } else if (edgeValue > 0 && edgeValue <= 50) {
-            tip = `Можно уменьшить на ${edgeValue} мм и наклеить подворот`;
+            tip = `Можно уменьшить на ${edgeValue} мм и наклеить подворот.`;
         } else {
             tip = ``;
         }
     } else if (!isPocket) {
         if (edgeValue > 0 && edgeValue <= 50) {
-            tip = `Можно уменьшить на ${edgeValue} мм`;
+            tip = `Можно уменьшить на ${edgeValue} мм.`;
         } else {
             tip = ``;
         }
@@ -66,7 +66,7 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     if (isCanvas && !solid) {
         wasteMsg = ``;
         minWasteMsg = ``;
-        tip = `Не помещается на материал`;
+        tip = `Не помещается на материал.`;
     } else if (isCanvas && solid && waste > 1) {
         tip = ``;
         minWasteMsg = ``;

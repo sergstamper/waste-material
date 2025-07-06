@@ -15,6 +15,7 @@ import edgeValues from './components/functions/edgeValues';
 import filterMaterial from './components/functions/filterMaterial';
 import Modal from './components/Modal/Modal';
 import DispalyVariants from './components/DispalyVariants/DisplayVariants';
+import copy from './components/functions/copy';
 
 function App() {
   const [materials, setMaterials] = useState([]);
@@ -87,6 +88,9 @@ function App() {
   function handleOptionsChange(event) {
     const materialValue = event.target.value;
     setCheckboxState(initialCheckboxState);
+    setWidthWaste([]);
+    setHeightWaste([]);
+    setDone(false);
     materials.forEach((material) => {
       if (material.name === materialValue) {
         setCurrentMaterial(material);
@@ -195,8 +199,10 @@ function App() {
         filteredWasteInHeightArr
       } = calcWaste(trueWidth, trueHeight, currentFilteredMaterial);
 
-      setWidthWaste(filteredWasteInWidthArr);
-      setHeightWaste(filteredWasteInHeightArr);
+      if (!isCanvas) {
+        setWidthWaste(filteredWasteInWidthArr);
+        setHeightWaste(filteredWasteInHeightArr);
+      }
 
       const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
 
@@ -204,6 +210,7 @@ function App() {
       
       const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
       setResult(resMsg);
+      console.log('Результат:', resMsg);
 
       setDone(true);
     } else {
@@ -265,24 +272,35 @@ function App() {
       <Result 
         result={result} 
         done={done}
-        onClick={() => setIsModalOpen(true)} 
+        onVariantClick={() => setIsModalOpen(true)} 
+        onCopy={() => copy({
+          currentMaterial, 
+          width, 
+          height, 
+          result, 
+          isBanner, 
+          isCanvas, 
+          checkboxState, 
+          is1440Checked, 
+          canvasOption
+        })}
       />
 
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <div className="info-block">
-            <DispalyVariants 
-              waste={widthWaste}
-              className={'info-vertical-list'}
-              title={'По вертикали'}
-            />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="info-block">
+          <DispalyVariants 
+            waste={widthWaste}
+            className={'info-vertical-list'}
+            title={'По вертикали'}
+          />
 
-            <DispalyVariants 
-              waste={heightWaste}
-              className={'info-horizontal-list'}
-              title={'По горизонтали'}
-            />
-          </div>
-        </Modal>
+          <DispalyVariants 
+            waste={heightWaste}
+            className={'info-horizontal-list'}
+            title={'По горизонтали'}
+          />
+        </div>
+      </Modal>
     </>
   )
 }
