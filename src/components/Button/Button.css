@@ -82,14 +82,17 @@
 }
 
 .modal-close-button {
-    background-color: #d1836b;
+    background-color: white;
+    border: 1px solid #d1836b;
     width: 150px;
-    height: 40px;
+    height: 37px;
     margin: 0 auto;
+    color: #d1836b
 }
 
 .modal-close-button:hover {
     background-color: #f89c80;
+    color: white;
     transition: 0.2s;
 }
 

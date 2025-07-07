@@ -27,7 +27,7 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     if (minWaste < 1) {
         minWasteMsg = `Без отхода (${minWaste} м²) из ${parts} ${partWord} на материале ${materialSize} мм.`;
     } else {
-        minWasteMsg = `Минимальный отход ${minWaste} м² из ${parts} ${partWord} на материале ${materialSize} мм.`;
+        minWasteMsg = `Миним. отход ${minWaste} м² из ${parts} ${partWord} на материале ${materialSize} мм.`;
     }
 
     if (waste < 1 && solid) {
