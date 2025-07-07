@@ -123,6 +123,7 @@ function BannerVariation({ onCheckboxChange, onRadioChange, checkboxState, activ
     </div>
   );
 }
+
 BannerVariation.propTypes = {
   onCheckboxChange: PropTypes.func.isRequired,
   onRadioChange: PropTypes.func.isRequired,

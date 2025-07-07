@@ -207,13 +207,13 @@ function App() {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="info-block">
           <DispalyVariants 
-            waste={widthWaste}
+            wasteArr={widthWaste}
             className={'info-vertical-list'}
             title={'По вертикали'}
           />
 
           <DispalyVariants 
-            waste={heightWaste}
+            wasteArr={heightWaste}
             className={'info-horizontal-list'}
             title={'По горизонтали'}
           />
