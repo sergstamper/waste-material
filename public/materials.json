@@ -53,7 +53,7 @@
   },
   {
     "name": "ARB_GL",
-    "description": "Самоклейка глянцевая ARB",
+    "description": "ARB глянцевая самоклейка",
     "size": [
       "1060",
       "1270",
@@ -64,7 +64,7 @@
   },
   {
     "name": "ARB_MAT",
-    "description": "Самоклейка матовая ARB",
+    "description": "ARB матовая самоклейка",
     "size": [
       "1060",
       "1270",
@@ -75,7 +75,7 @@
   },
   {
     "name": "Oracal_GL",
-    "description": "Самоклейка глянцевая Oracal",
+    "description": "Oracal глянцевая самоклейка",
     "size": [
       "1050",
       "1260",
@@ -86,7 +86,7 @@
   },
   {
     "name": "Oracal_MAT",
-    "description": "Самоклейка матовая Oracal",
+    "description": "Oracal матовая самоклейка",
     "size": [
       "1050",
       "1260",
@@ -97,7 +97,7 @@
   },
   {
     "name": "Ritrama_GL",
-    "description": "Самоклейка глянцевая Ritrama",
+    "description": "Ritrama глянцевая самоклейка",
     "size": [
       "1050",
       "1260",
@@ -108,7 +108,7 @@
   },
   {
     "name": "Ritrama_MAT",
-    "description": "Самоклейка матовая Ritrama",
+    "description": "Ritrama матовая самоклейка",
     "size": [
       "1050",
       "1260",
@@ -210,7 +210,7 @@
   },
   {
     "name": "Prozr. 3651",
-    "description": "Прозрачная автопленка 3651",
+    "description": "3651 прозрачная автопленка",
     "size": [
       "1370"
     ],
@@ -218,7 +218,7 @@
   },
   {
     "name": "White. 3651",
-    "description": "Белая автопленка 3651",
+    "description": "3651 белая автопленка",
     "size": [
       "1050",
       "1370"

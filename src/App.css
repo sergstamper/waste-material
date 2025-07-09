@@ -1,9 +1,24 @@
-#root {
-  width: 630px;
-  height: 630px;
-  margin: 0 auto;
-  padding: 30px 40px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-family: 'Calibri', sans-serif;
+.links {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #bdbdbd;
+    padding: 0 0 10px 0;
+}
+
+.link {
+    font-family: "Calibri", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    text-decoration: none;
+    color: #acacac;
+}
+
+.link:hover {
+    color: #55b19a;
+}
+
+.link-active {
+    color: #d1836b;
 }

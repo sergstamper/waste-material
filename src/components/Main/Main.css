@@ -1,0 +1,10 @@
+#root {
+  width: 630px;
+  height: 630px;
+  margin: 0 auto;
+  padding: 30px 40px;
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  box-sizing: border-box;
+  font-family: 'Calibri', sans-serif;
+}
