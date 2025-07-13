@@ -1,0 +1,66 @@
+.settings {
+  display: flex;
+  gap: 30px;
+  text-align: left;
+}
+
+.material-list {
+  width: 320px;
+  border: 1px solid #ccc;
+  height: 575px;
+  overflow-y: auto;
+}
+
+.material-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.material-item span {
+  flex-grow: 1;
+}
+
+.material-item button {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.material-item.add {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.material-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 200px;
+}
+
+.material-form label {
+  display: flex;
+  flex-direction: column;
+}
+
+.material-form input,
+.material-form textarea,
+.material-form select {
+  padding: 6px;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.material-form button {
+  margin-top: 10px;
+  padding: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
