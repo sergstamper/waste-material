@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import './Settings.css';
 
-const materialTypes = ['баннер', 'пленка', 'бумага', 'холст'];
+const materialTypes = [
+  {id: 1, value: 'banner', label: 'баннер'},
+  {id: 2, value: 'vinyl', label: 'пленка'},
+  {id: 3, value: 'paper', label: 'бумага'},
+  {id: 4, value: 'canvas', label: 'холст'}
+];
 
 function Settings() {
   const [data, setData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [sizeText, setSizeText] = useState('');
 
   const [form, setForm] = useState({
     name: '',
     description: '',
     size: [],
-    type: 'баннер',
+    type: 'banner',
   });
 
   useEffect(() => {
@@ -25,14 +31,22 @@ function Settings() {
     const item = data[index];
     setSelectedIndex(index);
     setForm({ ...item });
+    setSizeText(item.size.join('\n'));
   };
 
   const handleFormChange = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
+  // const handleSizeChange = (e) => {
+  //   const lines = e.target.value.split('\n').filter(Boolean);
+  //   setForm((prev) => ({ ...prev, size: lines }));
+  // };
+
   const handleSizeChange = (e) => {
-    const lines = e.target.value.split('\n').filter(Boolean);
+    const value = e.target.value;
+    setSizeText(value);
+    const lines = value.split('\n').map(s => s.trim()).filter(Boolean);
     setForm((prev) => ({ ...prev, size: lines }));
   };
 
@@ -40,18 +54,27 @@ function Settings() {
     const updatedData = [...data];
     if (selectedIndex === null) {
       updatedData.push(form);
+          console.log(form);
     } else {
       updatedData[selectedIndex] = form;
     }
     setData(updatedData);
     setSelectedIndex(null);
-    setForm({ name: '', description: '', size: [], type: 'баннер' });
+    setForm({ name: '', description: '', size: [], type: 'banner' });
+    setSizeText('');
   };
 
   const handleNewMaterial = () => {
     setSelectedIndex(null);
-    setForm({ name: '', description: '', size: [], type: 'баннер' });
+    setForm({ name: '', description: '', size: [], type: 'banner' });
+    setSizeText('');
+    console.log('sizeText', sizeText);
   };
+
+  // const handleNewMaterial = () => {
+  //   setSelectedIndex(null);
+  //   setForm({ name: '', description: '', size: [], type: 'banner' });
+  // };
 
   const handleDelete = (index) => {
     const updatedData = data.filter((_, i) => i !== index);
@@ -93,7 +116,7 @@ function Settings() {
         <label>
           Размеры
           <textarea
-            value={form.size.join('\n')}
+            value={sizeText}
             onChange={handleSizeChange}
             rows={6}
           />
@@ -105,8 +128,8 @@ function Settings() {
             onChange={(e) => handleFormChange('type', e.target.value)}
           >
             {materialTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
+              <option key={type.id} value={type.value}>
+                {type.label}
               </option>
             ))}
           </select>

@@ -64,3 +64,10 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.material-form textarea {
+  resize: none;
+  height: 150px;
+  white-space: pre-wrap;
+  overflow: auto;
+}

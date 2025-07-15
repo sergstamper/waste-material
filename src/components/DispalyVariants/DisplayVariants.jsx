@@ -26,7 +26,7 @@ function DispalyVariants({ wasteArr, className, title }) {
 }
 
 DispalyVariants.propTypes = {
-    waste: PropTypes.arrayOf(
+    wasteArr: PropTypes.arrayOf(
         PropTypes.shape({
             waste: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             repeat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
