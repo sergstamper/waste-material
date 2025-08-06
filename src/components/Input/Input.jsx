@@ -1,12 +1,12 @@
 import './Input.css';
 import PropTypes from 'prop-types';
 
-function Input({ value, onChange, id, label }) {
+function Input({ value, onChange, id, label, className }) {
   return (
     <div className='input-container'>
       <label htmlFor={id}>{label}</label>
       <input
-        className='input'
+        className={`input-field ${className}`}
         type="text"
         value={value}
         onChange={onChange}

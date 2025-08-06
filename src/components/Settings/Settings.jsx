@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Settings.css';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
 
 const materialTypes = [
   {id: 1, value: 'banner', label: 'баннер'},
@@ -13,12 +15,14 @@ function Settings() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [sizeText, setSizeText] = useState('');
 
-  const [form, setForm] = useState({
+  const initialFormState = {
     name: '',
     description: '',
     size: [],
     type: 'banner',
-  });
+  }
+
+  const [form, setForm] = useState(initialFormState);
 
   useEffect(() => {
     fetch('materials.json')
@@ -51,6 +55,10 @@ function Settings() {
   };
 
   const handleSave = () => {
+    if (!form.name || !form.description || !form.size.length) {
+      alert('Пожалуйста, заполните все поля.');
+      return;
+    }
     const updatedData = [...data];
     if (selectedIndex === null) {
       updatedData.push(form);
@@ -60,13 +68,13 @@ function Settings() {
     }
     setData(updatedData);
     setSelectedIndex(null);
-    setForm({ name: '', description: '', size: [], type: 'banner' });
+    setForm(initialFormState);
     setSizeText('');
   };
 
   const handleNewMaterial = () => {
     setSelectedIndex(null);
-    setForm({ name: '', description: '', size: [], type: 'banner' });
+    setForm(initialFormState);
     setSizeText('');
     console.log('sizeText', sizeText);
   };
@@ -80,39 +88,48 @@ function Settings() {
     const updatedData = data.filter((_, i) => i !== index);
     setData(updatedData);
     setSelectedIndex(null);
+    setForm(initialFormState);
+    setSizeText('');
   };
 
   return (
     <div className="settings">
       <div className="material-list">
         <div className="material-item add" onClick={handleNewMaterial}>
-          Добавить новый материал
+          <span>Добавить новый материал</span>
+          <Button 
+            onClick={handleNewMaterial}
+            id='add'
+            className='add-material-button' />
         </div>
         {data.map((item, index) => (
           <div key={index} className="material-item">
             <span onClick={() => handleSelect(index)}>{item.description}</span>
-            <button onClick={() => handleDelete(index)}>×</button>
+            <Button 
+              onClick={() => handleDelete(index)}
+              id='delete'
+              className='delete-item-button' />
           </div>
         ))}
       </div>
 
       <div className="material-form">
-        <label>
-          Внутреннее имя
-          <input
-            type="text"
-            value={form.name}
-            onChange={(e) => handleFormChange('name', e.target.value)}
-          />
-        </label>
-        <label>
-          Название
-          <input
-            type="text"
-            value={form.description}
-            onChange={(e) => handleFormChange('description', e.target.value)}
-          />
-        </label>
+        <Input
+          label="Внутреннее имя"
+          value={form.name}
+          id='inner-name'
+          className='input-settings'
+          onChange={(e) => handleFormChange('name', e.target.value)}
+        />
+        
+        <Input
+          label="Название"
+          value={form.description}
+          id='description'
+          className='input-settings'
+          onChange={(e) => handleFormChange('description', e.target.value)}
+        />
+
         <label>
           Размеры
           <textarea
@@ -135,43 +152,15 @@ function Settings() {
           </select>
         </label>
 
-        <button onClick={handleSave}>
-          {selectedIndex === null ? 'Добавить' : 'Сохранить'}
-        </button>
+        <Button 
+          onClick={handleSave} 
+          id='save' 
+          className='save-button'
+          name={selectedIndex === null ? 'ДОБАВИТЬ' : 'СОХРАНИТЬ'} 
+        />
       </div>
     </div>
   );
 }
 
 export default Settings;
-
-
-// import { useEffect, useState } from 'react';
-// import './Settings.css';
-
-// function Settings() {
-//   const [data, setData] = useState(null);
-
-//   useEffect(() => {
-//     fetch('materials.json')
-//       .then(response => response.json())
-//       .then(data => setData(data))
-//       .catch(error => console.error('Error fetching data:', error));
-//   }, []);
-
-//   return (
-//     <div className="settings">
-//       {data ? (
-//         <ul>
-//           {data.map((item, index) => (
-//             <li key={index}>{item.description}</li>
-//           ))}
-//         </ul>
-//       ) : (
-//         <p>Loading...</p>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default Settings;

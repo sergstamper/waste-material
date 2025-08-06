@@ -29,11 +29,13 @@ function InputData({
                 value={width} 
                 id="width"
                 label="Ширина"
+                className='input-main'
                 onChange={onWidthChange} />
               <Input 
                 value={height} 
                 id="height"
                 label="Высота"
+                className='input-main'
                 onChange={onHeightChange} />
             </div>
         </div>

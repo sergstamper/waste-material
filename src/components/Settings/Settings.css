@@ -1,3 +1,15 @@
+.settings, 
+.material-list, 
+.material-item, 
+.material-form input, 
+.material-form textarea, 
+.material-form select {
+  font-family: "Calibri", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+}
+
 .settings {
   display: flex;
   gap: 30px;
@@ -6,17 +18,21 @@
 
 .material-list {
   width: 320px;
-  border: 1px solid #ccc;
+  border: 1px solid #d3d3d3;
   height: 575px;
   overflow-y: auto;
+  background-color: white;
 }
 
 .material-item {
   display: flex;
   justify-content: space-between;
-  padding: 5px 10px;
-  border-bottom: 1px solid #eee;
+  padding: 5px 10px 2px 20px;
   cursor: pointer;
+}
+
+.material-item:hover {
+  background-color: #e2e2e2;
 }
 
 .material-item span {
@@ -33,8 +49,15 @@
 
 .material-item.add {
   font-weight: bold;
-  background-color: #f0f0f0;
+  padding: 7px 10px 7px 20px;
+  background-color: #f8f7ff;
   cursor: pointer;
+  font-size: 16px;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.material-item.add:hover {
+  background-color: #e2e2e2;
 }
 
 .material-form {
@@ -50,13 +73,13 @@
   flex-direction: column;
 }
 
-.material-form input,
+/* .material-form input,
 .material-form textarea,
 .material-form select {
   padding: 6px;
   font-size: 14px;
   margin-top: 4px;
-}
+} */
 
 .material-form button {
   margin-top: 10px;
