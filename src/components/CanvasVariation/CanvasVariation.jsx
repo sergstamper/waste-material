@@ -1,3 +1,5 @@
+import RadioButton from '../RadioButton/RadioButton';
+
 import './CanvasVariation.css';
 
 function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardCheckboxChange } ) {
@@ -5,7 +7,40 @@ function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardChe
 
     return (
         <div className="container">
-            <div className="group">
+            <RadioButton
+                id="wo-fields"
+                name="canvas-option"
+                value="zero"
+                onChange={onChange}
+                label="Без полей"
+            />
+
+            <RadioButton
+                id="15-30"
+                name="canvas-option"
+                value="15x30"
+                onChange={onChange}
+                label="15×30"
+            />
+
+            <RadioButton
+                id="17-45"
+                name="canvas-option"
+                value="17x45"
+                onChange={onChange}
+                label="17×45"
+            />
+
+            <RadioButton
+                id="23-45"
+                name="canvas-option"
+                value="23x45"
+                onChange={onChange}
+                label="23×45"
+            />
+
+
+            {/* <div className="group">
                 <input
                     id="wo-fields" 
                     type="radio" 
@@ -13,9 +48,9 @@ function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardChe
                     value="zero" 
                     onChange={onChange} />
                 <label htmlFor="wo-fields">Без полей</label>
-            </div>
+            </div> */}
 
-            <div className="group">
+            {/* <div className="group">
                 <input
                     id="15-30" 
                     type="radio" 
@@ -43,7 +78,7 @@ function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardChe
                     value="23x45" 
                     onChange={onChange} />
                 <label htmlFor="23-45">23×45</label>
-            </div>
+            </div> */}
 
             <div className="group">
                 <input

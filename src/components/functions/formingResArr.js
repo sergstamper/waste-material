@@ -81,15 +81,17 @@ function formingResArr(
 
 export default formingResArr;
 
+//Вариант с делением на части узких длинных полос
+
 // function formingResArr(
 //   currentWidth, 
 //   currentHeight, 
 //   material, 
-//   direction) {
-
+//   direction
+// ) {
 //   const wasteArr = [];
 //   const currentMaterialType = material.type;
-//   const currentSizeArr = material.size;
+//   const currentSizeArr = material.size.map(Number); // на всякий случай к числам
 
 //   const bannerGluing = 40;
 //   const vinylGluing = 5;
@@ -104,18 +106,41 @@ export default formingResArr;
 //   } else {
 //     width = currentHeight;
 //     height = currentWidth;
-//     key = 'wasteHeight'
+//     key = 'wasteHeight';
 //   }
 
+//   const minSize = Math.min(...currentSizeArr);
+//   const maxSize = Math.max(...currentSizeArr);
+
+//   // --- Вертикальный раскрой (исправлено) ---
+//   // Логика: кладём части "вертикально" в минимальную ширину материала.
+//   // Кол-во частей = сколько раз высота макета помещается в minSize.
+//   // Швы НЕ учитываем.
+//   if (width > maxSize && height < (minSize / 2 - 10)) {
+//     const parts = Math.floor(minSize / height); // сколько помещается по высоте
+//     if (parts >= 2) {
+//       const wasteValue = minSize - parts * height;              // остаток по ширине материала
+//       const partLength = width / parts;                          // длина печати одной полосы
+//       const wasteArea = (wasteValue / 1000) * (partLength / 1000);
+
+//       if (wasteValue >= 20) {
+//         wasteArr.push({
+//           size: minSize,
+//           repeat: parts,
+//           [key]: wasteValue.toFixed(2),
+//           waste: wasteArea.toFixed(2),
+//           vertical: true
+//         });
+//       }
+//     }
+//   }
+
+//   // --- Обычный расчёт (как было) ---
 //   currentSizeArr.forEach((size) => {
-//     let repeat = Math.ceil(width / size);
-//     let add = 0;
-//     let resultWidth = 0;
-//     let resultHeight = 0;
+//     let minParts = Math.ceil(width / size);
+//     let bestSolution = null;
 
-//     const calculateParts = (parts) => {
-//       if (parts < 1) return null;
-
+//     for (let parts = minParts; parts <= minParts + 10; parts++) {
 //       let addition = 0;
 //       if (parts > 1) {
 //         if (currentMaterialType === 'banner') {
@@ -126,24 +151,18 @@ export default formingResArr;
 //       }
 
 //       const partWidth = width / parts + addition;
-//       if (partWidth > size) {
-//         return calculateParts(parts - 1);
+//       if (partWidth <= size) {
+//         bestSolution = { parts, addition, partWidth };
+//         break;
 //       }
-//           console.log('parts:', parts);
+//     }
 
-//       return {
-//         parts,
-//         addition,
-//         partWidth
-//       };
-//     };
+//     if (!bestSolution) return;
 
-//     const result = calculateParts(repeat);
-//     if (!result) return;
+//     const repeat = bestSolution.parts;
+//     const add = bestSolution.addition;
 
-//     repeat = result.parts;
-//     add = result.addition;
-
+//     let resultWidth, resultHeight;
 //     if (repeat > 1) {
 //       resultWidth = width / repeat + add;
 //       resultHeight = height * repeat;

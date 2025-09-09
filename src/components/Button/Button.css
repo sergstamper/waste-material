@@ -13,7 +13,8 @@
 }
 
 .button-calc,
-.save-button {
+.save-button,
+.set-oversize-button {
     background-color: #55b19a;
 }
 
@@ -22,7 +23,8 @@
 }
 
 .button-calc:hover,
-.save-button:hover {
+.save-button:hover,
+.set-oversize-button:hover {
     background-color: #6ad8bc;
     transition: 0.2s;
 }
@@ -33,7 +35,8 @@
 }
 
 .button-calc:active,
-.save-button:active {
+.save-button:active,
+.set-oversize-button:active {
     background-color: #449e88;
     transition: 0.1s;
 }
@@ -183,5 +186,23 @@
 
 .save-button {
     width: 100%;
+    margin: 10px 0;
+    height: 30px;
+}
 
+.set-oversize-button {
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    transition: 0.1s;
+    font-size: 13px;
+    background-color: #ffffff;
+    color: #378f77;
+    border: 1px solid #999999;
+}
+
+.disabled {
+    background-color: #adadad;
+    cursor: not-allowed;
 }

@@ -1,9 +1,9 @@
-function calcDimensions(checkboxState, width, height) {
+function calcDimensions(checkboxState, width, height, undersideSize, pocketSize) {
     let tempWidth = parseFloat(width) || 0;
     let tempHeight = parseFloat(height) || 0;
 
-    const underSide = 40;
-    const pocket = 100;
+    const underSide = parseFloat(undersideSize) || 0;
+    const pocket = parseFloat(pocketSize) || 0;
 
     if (checkboxState['left-1']) tempWidth += underSide;
     if (checkboxState['right-1']) tempWidth += underSide;

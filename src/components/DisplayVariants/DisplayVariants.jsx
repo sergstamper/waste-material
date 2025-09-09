@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 
-function DispalyVariants({ wasteArr, className, title }) {
+import './DisplayVariants.css';
+
+function DisplayVariants({ wasteArr, className, title, imgSrc }) {
     return (
         <div className={className}>
-            <h2>{title}</h2>
+            <div className="disp-title">
+                <h2>{title}</h2>
+                <img src={imgSrc} alt={title} />
+            </div>
             <ul>
                 {wasteArr.length > 0 ? (
                     wasteArr.map((item, index) => {
@@ -25,7 +30,7 @@ function DispalyVariants({ wasteArr, className, title }) {
     );
 }
 
-DispalyVariants.propTypes = {
+DisplayVariants.propTypes = {
     wasteArr: PropTypes.arrayOf(
         PropTypes.shape({
             waste: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -34,7 +39,8 @@ DispalyVariants.propTypes = {
         })
     ).isRequired,
     className: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    imgSrc: PropTypes.string
 };
 
-export default DispalyVariants;
+export default DisplayVariants;

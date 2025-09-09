@@ -1,6 +1,17 @@
-function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
-    const isUnderside = checkboxState['center-1'];
-    const isPocket = checkboxState['center-2'];
+function resultMsg(resultObj, checkboxState, edgeValue, isCanvas, undersideSize) {
+    const isGroupActive = (groupId) => {
+        return Object.entries(checkboxState).some(([key, value]) => 
+            key.endsWith(`-${groupId}`) && value
+        );
+    };
+
+    const isUnderside = isGroupActive(1);
+    const isPocket = isGroupActive(2);
+
+    // const isUnderside = checkboxState['center-1'];
+    // const isPocket = checkboxState['center-2'];
+
+    const underside = undersideSize ? parseFloat(undersideSize)*2 : 0;
 
     let wasteMsg = '';
     let minWasteMsg = '';
@@ -40,8 +51,8 @@ function resultMsg(resultObj, checkboxState, edgeValue, isCanvas) {
     } 
 
     if (isUnderside) {
-        if (edgeValue > -80 && edgeValue <= 0) {
-            tip = `Можно уменьшить на ${80 + edgeValue} мм или наклеить подворот.`;
+        if (edgeValue > -underside && edgeValue <= 0) {
+            tip = `Можно уменьшить на ${underside + edgeValue} мм или наклеить подворот.`;
         } else if (edgeValue > 0 && edgeValue <= 50) {
             tip = `Можно уменьшить на ${edgeValue} мм и наклеить подворот.`;
         } else {

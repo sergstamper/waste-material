@@ -1,0 +1,10 @@
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.textarea-settings {
+    margin: 5px 0;
+    padding: 8px;
+    font-size: 13px;
+}

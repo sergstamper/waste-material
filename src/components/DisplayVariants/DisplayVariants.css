@@ -1,0 +1,24 @@
+.disp-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.disp-title h2 {
+    font-size: 18px;
+    margin: 0;
+    color: #8b8b8b;
+}
+
+.info-vertical-list {
+    margin-bottom: 30px;
+}
+/* 
+.disp-title img {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+} */

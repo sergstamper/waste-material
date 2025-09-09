@@ -1,20 +1,29 @@
 import './BannerVariation.css'
 import PropTypes from 'prop-types';
 
-function BannerVariation({ onCheckboxChange, onRadioChange, checkboxState, activeGroup, isBanner }) {
+function BannerVariation({ 
+  onCheckboxChange, 
+  onRadioChange, 
+  checkboxState, 
+  activeGroup, 
+  undersideSize,
+  pocketSize
+  // isBanner 
+}) {
   // const appearance = isBanner ? 'container' : 'hidden';
 
   return (
     <div className="container">
       <div className="group">
-          <input 
-            type="radio" 
-            name="option" 
-            value="underside" 
-            checked={activeGroup === "underside"}
-            onChange={onRadioChange} 
-            id="underside"
-          />
+        <div className="underside-size">{undersideSize} mm</div>
+        <input 
+          type="radio" 
+          name="option" 
+          value="underside" 
+          checked={activeGroup === "underside"}
+          onChange={onRadioChange} 
+          id="underside"
+        />
         <label htmlFor="underside">Подворот</label>
         <div className="checkbox-flex">
           <input 
@@ -26,7 +35,7 @@ function BannerVariation({ onCheckboxChange, onRadioChange, checkboxState, activ
             className="child-checkbox" 
           />
           <div className='checkbox-center'>
-          <input
+            <input
               onChange={onCheckboxChange}
               type="checkbox"
               id="left-1"
@@ -51,28 +60,29 @@ function BannerVariation({ onCheckboxChange, onRadioChange, checkboxState, activ
               className="child-checkbox"
             />
           </div>
-            <input
-              onChange={onCheckboxChange}
-              type="checkbox"
-              id="bottom-1"
-              checked={checkboxState["bottom-1"] || false}
-              disabled={activeGroup !== "underside"}
-              className="child-checkbox"
-            />
+          <input
+            onChange={onCheckboxChange}
+            type="checkbox"
+            id="bottom-1"
+            checked={checkboxState["bottom-1"] || false}
+            disabled={activeGroup !== "underside"}
+            className="child-checkbox"
+          />
         </div>
       </div>
 
       <div className="divider"></div>
 
       <div className="group">
-          <input
-            type="radio"
-            name="option"
-            value="pockets"
-            checked={activeGroup === "pockets"}
-            onChange={onRadioChange}
-            id="pockets"
-          />
+        <div className="underside-size">{pocketSize} mm</div>
+        <input
+          type="radio"
+          name="option"
+          value="pockets"
+          checked={activeGroup === "pockets"}
+          onChange={onRadioChange}
+          id="pockets"
+        />
         <label htmlFor="pockets">Карманы</label>
         <div className="checkbox-flex">
           <input
@@ -129,6 +139,8 @@ BannerVariation.propTypes = {
   onRadioChange: PropTypes.func.isRequired,
   checkboxState: PropTypes.object.isRequired,
   activeGroup: PropTypes.string.isRequired,
+  undersideSize: PropTypes.node,
+  pocketSize: PropTypes.node,
   isBanner: PropTypes.bool
 };
 

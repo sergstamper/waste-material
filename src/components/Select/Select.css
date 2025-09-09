@@ -14,3 +14,20 @@
   font-weight: 600;
   color: #5a7c97;
 }
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-main {
+    width: 120px;
+    margin-top: 10px;
+}
+
+.select-settings {
+    margin: 5px 0;
+    padding: 3px;
+    font-size: 13px;
+    height: 30px;
+}

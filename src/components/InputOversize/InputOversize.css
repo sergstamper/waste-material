@@ -1,0 +1,8 @@
+.input-oversize {
+    display: flex;
+    gap: 10px;
+}
+
+.oversize-title {
+    margin: 10px 0 2px 0;
+}

@@ -1,12 +1,13 @@
 import './Button.css';
 import PropTypes from 'prop-types';
 
-function Button({ onClick, name, id, className }) {
+function Button({ onClick, name, id, className, disabled }) {
   return (
     <button 
       onClick={onClick} 
       id={id} 
       className={`btn ${className}`}
+      disabled={disabled}
     >
       {name}
     </button>

@@ -7,7 +7,7 @@ import MaterialOptions from '../MaterialOptions/MaterialOptions';
 import ButtonsBlock from '../ButtonsBlock/ButtonsBlock';
 import Result from '../Result/Result';
 import Modal from '../Modal/Modal';
-import DispalyVariants from '../DispalyVariants/DisplayVariants';
+import DisplayVariants from '../DisplayVariants/DisplayVariants';
 
 // Utils
 import canvasChoise from '../functions/canvasChoise';
@@ -21,6 +21,7 @@ import copy from '../functions/copy';
 
 // Hooks
 import useMaterialData from '../hooks/useMaterialData';
+import useSettingsData from '../hooks/useSettingsData';
 import useDimensions from '../hooks/useDimensions';
 import useCheckboxState from '../hooks/useCheckboxState';
 import useMaterialType from '../hooks/useMaterialType';
@@ -30,6 +31,7 @@ import useModal from '../hooks/useModal';
 function Main() {
   // State hooks
   const { materials, currentMaterial, setCurrentMaterial } = useMaterialData();
+  const { undersideSize, pocketSize } = useSettingsData();
   const { width, height, trueWidth, trueHeight, handleSizeChange, setWidth, setHeight, setTrueWidth, setTrueHeight } = useDimensions();
   const { checkboxState, setCheckboxState, resetCheckboxState } = useCheckboxState();
   const { isBanner, isCanvas, checkMaterialType } = useMaterialType();
@@ -109,7 +111,7 @@ function Main() {
         updatedState[`center${groupSuffix}`] = allChecked;
       }
 
-      const { tempWidth, tempHeight } = calcDimensions(updatedState, width, height);
+      const { tempWidth, tempHeight } = calcDimensions(updatedState, width, height, undersideSize, pocketSize);
       setTrueWidth(tempWidth.toString());
       setTrueHeight(tempHeight.toString());
 
@@ -130,8 +132,8 @@ function Main() {
     }
 
     const resultObj = makeResult(filteredWasteInWidthArr, filteredWasteInHeightArr);
-    const edgeValue = edgeValues(width, height, currentFilteredMaterial.size);
-    const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas);
+    const edgeValue = edgeValues(width, height, currentFilteredMaterial.size, undersideSize);
+    const resMsg = resultMsg(resultObj, checkboxState, edgeValue, isCanvas, undersideSize);
     
     setResult(resMsg);
     setDone(true);
@@ -180,6 +182,8 @@ function Main() {
         onStandardChange={handleStandardCheckboxChange} 
         onCheckbox1440Change={(e) => setIs1440Checked(e.target.checked)}
         checkbox1440State={is1440Checked}
+        undersideSize={undersideSize}
+        pocketSize={pocketSize}
       />
 
       <ButtonsBlock
@@ -206,16 +210,18 @@ function Main() {
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="info-block">
-          <DispalyVariants 
+          <DisplayVariants 
             wasteArr={widthWaste}
             className={'info-vertical-list'}
             title={'По вертикали'}
+            imgSrc={'./vert.svg'}
           />
 
-          <DispalyVariants 
+          <DisplayVariants 
             wasteArr={heightWaste}
             className={'info-horizontal-list'}
             title={'По горизонтали'}
+            imgSrc={'./horiz.svg'}
           />
         </div>
       </Modal>

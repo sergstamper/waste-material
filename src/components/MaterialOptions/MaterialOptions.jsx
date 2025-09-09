@@ -18,6 +18,8 @@ function MaterialOptions({
         onStandardChange, 
         onCheckbox1440Change, 
         checkbox1440State, 
+        undersideSize,
+        pocketSize
     }) {
 
     return (
@@ -25,6 +27,8 @@ function MaterialOptions({
             {isBanner && (
                 <div className="variation-container banner-options">
                     <BannerVariation
+                        undersideSize={undersideSize}
+                        pocketSize={pocketSize}
                         keyGroup={keyGroup}
                         checkboxState={checkboxState}
                         activeGroup={activeGroup}
@@ -67,6 +71,8 @@ MaterialOptions.propTypes = {
     onStandardChange: PropTypes.func,
     onCheckbox1440Change: PropTypes.func,
     checkbox1440State: PropTypes.any,
+    undersideSize: PropTypes.any,
+    pocketSize: PropTypes.any,
 };
 
 export default MaterialOptions;

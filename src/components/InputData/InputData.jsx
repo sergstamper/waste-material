@@ -1,4 +1,4 @@
-import Options from '../Options/Options';
+import Select from '../Select/Select';
 import Input from '../Input/Input';
 import Display from '../Display/Display';
 
@@ -20,25 +20,33 @@ function InputData({
     <>
       <div className="materials">
         <div className="input-data">
-          <Options 
-            materials={materials} 
+          <Select
+            label="Материал"
+            id="material-select"
+            className="options"
+            containerClassName="select-material"
+            value={currentMaterial.name}
+            options={materials}
             onChange={onOptionChange}
-            currentMaterial={currentMaterial} />
-            <div className="inputs">
-              <Input 
-                value={width} 
-                id="width"
-                label="Ширина"
-                className='input-main'
-                onChange={onWidthChange} />
-              <Input 
-                value={height} 
-                id="height"
-                label="Высота"
-                className='input-main'
-                onChange={onHeightChange} />
+          />
+
+          <div className="inputs">
+            <Input 
+              value={width} 
+              id="width"
+              label="Ширина"
+              className='input-main'
+              onChange={onWidthChange} />
+
+            <Input 
+              value={height} 
+              id="height"
+              label="Высота"
+              className='input-main'
+              onChange={onHeightChange} />
             </div>
         </div>
+
         <div className="material-properties">
           <Display sizes={sizes} />
         </div>
