@@ -5,8 +5,8 @@ import './Settings.css';
 // import TextArea from '../TextArea/TextArea';
 // import Select from '../Select/Select';
 // import InputOversize from '../InputOversize/InputOversize';
-import MaterialForm from '../MaterialForm/MaterialForm';
 import MaterialList from '../MaterialList/MaterialList';
+import MaterialForm from '../MaterialForm/MaterialForm';
 
 const materialTypes = [
   { name: 'banner', description: 'баннер' },

@@ -1,7 +1,13 @@
-.group label {
+.standard-checkbox label {
     display: block;
     margin-left: 5px;
     font-size: 15px;
     transform: translateY(1px);
     text-align: left;
+}
+
+.standard-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }

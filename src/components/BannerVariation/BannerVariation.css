@@ -1,24 +1,3 @@
-/* .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 25px;
-} */
-
-.group {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.group label {
-  display: block;
-  margin-left: 5px;
-  font-size: 16px;
-  transform: translateY(1px);
-}
-
 .checkbox-flex {
   box-sizing: border-box;
   width: 100px;
@@ -27,14 +6,14 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 3px;
   transform: translateY(1px);
 }
 
 .checkbox-center {
   display: flex;
   align-items: space-between;
-  gap: 8px
+  gap: 6px
 }
 
 .checkbox-flex input[type="checkbox"] {

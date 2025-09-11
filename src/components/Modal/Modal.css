@@ -15,7 +15,7 @@
   background: white;
   padding: 40px;
   border-radius: 8px;
-  max-width: 80%;
+  width: 370px;
   max-height: 80vh;
   overflow-y: auto;
 }

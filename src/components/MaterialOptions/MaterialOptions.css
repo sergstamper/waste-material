@@ -7,25 +7,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 25px;
+    gap: 22px;
 }
 
-.banner-options {
+.banner-options, .canvas-options {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 25px;
 }
-
-/* .canvas-options {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-} */
 
 .divider {
     width: 1px;
     height: 80px;
     background-color: lightgray;
 }
+

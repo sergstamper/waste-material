@@ -1,10 +1,10 @@
+import Checkbox from '../Checkbox/Checkbox';
 import RadioButton from '../RadioButton/RadioButton';
 
 import './CanvasVariation.css';
+import PropTypes from 'prop-types';
 
-function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardCheckboxChange } ) {
-    // const appearance = isCanvas ? 'container' : 'hidden';
-
+function CanvasVariation( { onChange, isStandardChecked, onStandardCheckboxChange } ) {
     return (
         <div className="container">
             <RadioButton
@@ -80,18 +80,33 @@ function CanvasVariation( { isCanvas, onChange, isStandardChecked, onStandardChe
                 <label htmlFor="23-45">23×45</label>
             </div> */}
 
-            <div className="group">
-                <input
+
+
+                <Checkbox
+                    id="standard"
+                    name="standard"
+                    value="standard"
+                    containerClassName={"standard-checkbox"}
+                    checked={isStandardChecked}
+                    onChange={onStandardCheckboxChange}
+                    label="Стандартная натяжка"
+                />
+                {/* <input
                     id="" 
                     type="checkbox" 
                     name="standart" 
                     value="standart" 
                     checked={isStandardChecked} 
                     onChange={onStandardCheckboxChange}  />
-                <label htmlFor="standard">Стандартная натяжка</label>
-            </div>
+                <label htmlFor="standard">Стандартная натяжка</label> */}
+
         </div>
     )
 }
+CanvasVariation.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    isStandardChecked: PropTypes.bool.isRequired,
+    onStandardCheckboxChange: PropTypes.func.isRequired,
+};
 
 export default CanvasVariation;

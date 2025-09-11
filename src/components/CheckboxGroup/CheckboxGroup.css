@@ -1,0 +1,13 @@
+.group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.group label {
+    display: block;
+    margin-left: 5px;
+    font-size: 16px;
+    transform: translateY(1px);
+}

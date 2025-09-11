@@ -1,5 +1,8 @@
-import './BannerVariation.css'
 import PropTypes from 'prop-types';
+
+import CheckboxGroup from '../CheckboxGroup/CheckboxGroup';
+
+import './BannerVariation.css'
 
 function BannerVariation({ 
   onCheckboxChange, 
@@ -14,121 +17,143 @@ function BannerVariation({
 
   return (
     <div className="container">
-      <div className="group">
+
+      <CheckboxGroup 
+        id="underside"
+        checkboxPrefix="1"
+        label="Подворот"
+        size={undersideSize}
+        activeGroup={activeGroup}
+        onRadioChange={onRadioChange}
+        onCheckboxChange={onCheckboxChange}
+        checkboxState={checkboxState}
+      />
+
+      {/* <div className="group">
         <div className="underside-size">{undersideSize} mm</div>
-        <input 
-          type="radio" 
-          name="option" 
-          value="underside" 
-          checked={activeGroup === "underside"}
-          onChange={onRadioChange} 
+        
+        <RadioButton 
           id="underside"
+          name="option"
+          value="underside"
+          checked={activeGroup === "underside"}
+          onChange={onRadioChange}
+          label="Подворот"
         />
-        <label htmlFor="underside">Подворот</label>
+
         <div className="checkbox-flex">
-          <input 
+          <Checkbox 
             onChange={onCheckboxChange} 
-            type="checkbox" 
-            id="top-1" 
+            id="top-1"
             checked={checkboxState["top-1"] || false}
             disabled={activeGroup !== "underside"}
-            className="child-checkbox" 
+            className="child-checkbox"
           />
+          
           <div className='checkbox-center'>
-            <input
+            <Checkbox
               onChange={onCheckboxChange}
-              type="checkbox"
               id="left-1"
               checked={checkboxState["left-1"] || false}
               disabled={activeGroup !== "underside"}
               className="child-checkbox"
             />
-            <input
+            <Checkbox
               onChange={onCheckboxChange}
-              type="checkbox"
               id="center-1"
               checked={checkboxState["center-1"] || false}
               disabled={activeGroup !== "underside"}
               className="master-checkbox"
             />
-            <input
+            <Checkbox
               onChange={onCheckboxChange}
-              type="checkbox"
               id="right-1"
               checked={checkboxState["right-1"] || false}
               disabled={activeGroup !== "underside"}
               className="child-checkbox"
             />
           </div>
-          <input
+
+          <Checkbox
             onChange={onCheckboxChange}
-            type="checkbox"
             id="bottom-1"
             checked={checkboxState["bottom-1"] || false}
             disabled={activeGroup !== "underside"}
             className="child-checkbox"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="divider"></div>
 
-      <div className="group">
+      <CheckboxGroup
+        id="pockets"
+        checkboxPrefix="2"
+        label="Карманы"
+        size={pocketSize}
+        activeGroup={activeGroup}
+        onRadioChange={onRadioChange}
+        onCheckboxChange={onCheckboxChange}
+        checkboxState={checkboxState}
+      />
+
+      {/* <div className="group">
         <div className="underside-size">{pocketSize} mm</div>
-        <input
-          type="radio"
+        
+        <RadioButton
+          id="pockets"
           name="option"
           value="pockets"
           checked={activeGroup === "pockets"}
           onChange={onRadioChange}
-          id="pockets"
+          label="Карманы"
         />
-        <label htmlFor="pockets">Карманы</label>
+
         <div className="checkbox-flex">
-          <input
+          <Checkbox
             onChange={onCheckboxChange}
-            type="checkbox"
             id="top-2"
             checked={checkboxState["top-2"] || false}
             disabled={activeGroup !== "pockets"}
             className="child-checkbox"
           />
+
           <div className="checkbox-center">
-            <input
+            <Checkbox
               onChange={onCheckboxChange}
-              type="checkbox"
+
               id="left-2"
               checked={checkboxState["left-2"] || false}
               disabled={activeGroup !== "pockets"}
               className="child-checkbox"
             />
-            <input
+            <Checkbox
               onChange={onCheckboxChange}
-              type="checkbox"
+
               id="center-2"
               checked={checkboxState["center-2"] || false}
               disabled={activeGroup !== "pockets"}
               className="master-checkbox"
             />
-            <input
+            <Checkbox
               onChange={onCheckboxChange}
-              type="checkbox"
+
               id="right-2"
               checked={checkboxState["right-2"] || false}
               disabled={activeGroup !== "pockets"}
               className="child-checkbox"
             />
           </div>
-          <input
+          
+          <Checkbox
             onChange={onCheckboxChange}
-            type="checkbox"
             id="bottom-2"
             checked={checkboxState["bottom-2"] || false}
             disabled={activeGroup !== "pockets"}
             className="child-checkbox"
           />
         </div>
-      </div>
+      </div> */}
       
     </div>
   );
