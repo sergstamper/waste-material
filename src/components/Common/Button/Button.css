@@ -1,0 +1,278 @@
+.btn {
+    width: 50%;
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    color: white;
+    transition: 0.1s;
+    font-family: "Calibri", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.button-calc,
+.save-button,
+.set-oversize-button {
+    background-color: #55b19a;
+}
+
+.button-reset, 
+.modal-delete-button {
+    background-color: #d1836b;
+}
+
+.button-calc:hover,
+.save-button:hover,
+.set-oversize-button:hover {
+    background-color: #6ad8bc;
+    transition: 0.2s;
+}
+
+.button-reset:hover,
+.modal-delete-button:hover {
+    background-color: #f89c80;
+    transition: 0.2s;
+}
+
+.button-calc:active,
+.save-button:active,
+.set-oversize-button:active {
+    background-color: #449e88;
+    transition: 0.1s;
+}
+
+.button-reset:active,
+.modal-delete-button:active {
+    background-color: #a05b46;
+    transition: 0.1s;
+}
+
+.res-btn {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    
+}
+
+.button-data {
+    background-color: #5588b1;
+}
+
+.button-copy {
+    background-color: #ffffff;
+    color: #575757;
+    border: 1px solid #b4b4b4;
+}
+
+.button-data:hover {
+    background-color: #7eadd3;
+    transition: 0.2s;
+}
+
+.button-copy:hover {
+    background-color: #dddddd;
+    transition: 0.2s;
+}
+
+.button-data:active {
+    background-color: #3f6e94;
+    transition: 0.1s;
+}
+
+.button-copy:active {
+    background-color: #b9b9b9;
+    transition: 0.1s;
+}
+
+.modal-close-button {
+    background-color: white;
+    border: 1px solid #d1836b;
+    width: 150px;
+    height: 37px;
+    margin: 0 auto;
+    color: #d1836b
+}
+
+.modal-close-button:hover {
+    background-color: #f89c80;
+    color: white;
+    transition: 0.2s;
+}
+
+.modal-close-button:active {
+    background-color: #a05b46;
+    transition: 0.1s;
+}
+
+.delete-item-button {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: none;
+}
+
+.delete-item-button::before, 
+.delete-item-button::after {
+    content: "";
+    width: 15px;
+    height: 1px;
+    border: none;
+    background-color: #8d8d8d;
+    position: absolute;
+}
+
+.delete-item-button::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.delete-item-button::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.delete-item-button:hover::before,
+.delete-item-button:hover::after {
+    background-color: #d1836b;
+}
+
+.delete-item-button:hover {
+    cursor: pointer;
+}
+
+.add-material-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+    position: relative;
+    transition: 0.2s;
+}
+
+.add-material-button::before, 
+.add-material-button::after {
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 1px;
+    background-color: #8d8d8d;
+    transition: 0.2s;
+}
+
+.add-material-button::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-material-button::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.add-material-button:hover::before,
+.add-material-button:hover::after {
+    background-color: #55b19a;
+    transition: 0.2s;
+}
+
+.save-button {
+    width: 100%;
+    margin: 10px 0;
+    height: 30px;
+    cursor: pointer;
+}
+
+.set-oversize-button {
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    transition: 0.1s;
+    font-size: 13px;
+    background-color: #ffffff;
+    color: #27899b;
+    border: 1px solid #999999;
+    cursor: pointer;
+}
+
+.set-oversize-button:hover {
+    background-color: #e6f7f8;
+    transition: 0.2s;
+}
+.set-oversize-button:active {
+    background-color: #25888f;
+    color: white;
+    transition: 0.1s;
+}
+
+.disabled {
+    background-color: #adadad;
+    cursor: not-allowed;
+}
+
+.disabled:hover {
+    background-color: #adadad;
+}
+
+.modal-cancel-button {
+    background-color: #39a2b4;
+}
+
+.modal-cancel-button:hover {
+    background-color: #5dc0d1;
+    transition: 0.2s;
+}
+
+.modal-cancel-button:active {
+    background-color: #258394;
+    transition: 0.1s;
+}
+
+.modal-save-button {
+    background-color: #55b19a;
+}
+
+.modal-save-button:hover {
+    background-color: #6ad8bc;
+    transition: 0.2s;
+}
+
+.modal-save-button:active {
+    background-color: #449e88;
+    transition: 0.1s;
+}
+
+.modal-nosave-button {
+    background-color: #d1836b;
+}
+
+.modal-nosave-button:hover {
+    background-color: #f89c80;
+    transition: 0.2s;
+}
+
+.modal-nosave-button:active {
+    background-color: #a05b46;
+    transition: 0.1s;
+}
+
+.modal-delete-button,
+.modal-cancel-button,
+.modal-save-button,
+.modal-nosave-button {
+    width: 150px;
+    height: 37px;
+    margin: 20px 10px 0 10px;
+}

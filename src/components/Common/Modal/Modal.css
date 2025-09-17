@@ -1,0 +1,41 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* полупрозрачный фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Должен быть выше, чем у других элементов */
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  width: 370px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content ul {
+  list-style: none;
+  text-align: left;
+  line-height: 1.5em;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+.close-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.material-name {
+    color: #505050;
+    font-weight: 400;
+    line-height: 1.5em;
+}
