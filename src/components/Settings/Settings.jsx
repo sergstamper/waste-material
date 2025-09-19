@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 
 import MaterialList from './MaterialList/MaterialList';
 import MaterialForm from './MaterialForm/MaterialForm';
-import useModal from '../hooks/useModal';
 import Modal from '../Common/Modal/Modal';
 import DeleteModal from './DeleteModal/DeleteModal';
 import SaveModal from './SaveModal/SaveModal';
+
+import useModal from '../../hooks/useModal';
 
 import './Settings.css';
 

@@ -12,23 +12,23 @@ import DisplayVariants from './DisplayVariants/DisplayVariants';
 import Button from '../Common/Button/Button';
 
 // Utils
-import canvasChoise from '../helpers/canvasChoise';
-import calcDimensions from '../helpers/calcDimensions';
-import calcWaste from '../helpers/calcWaste';
-import makeResult from '../helpers/makeResult';
-import resultMsg from '../helpers/resultMsg';
-import edgeValues from '../helpers/edgeValues';
-import filterMaterial from '../helpers/filterMaterial';
-import copy from '../helpers/copy';
+import canvasChoise from '../../helpers/canvasChoise';
+import calcDimensions from '../../helpers/calcDimensions';
+import calcWaste from '../../helpers/calcWaste';
+import makeResult from '../../helpers/makeResult';
+import resultMsg from '../../helpers/resultMsg';
+import edgeValues from '../../helpers/edgeValues';
+import filterMaterial from '../../helpers/filterMaterial';
+import copy from '../../helpers/copy';
 
 // Hooks
-import useMaterialData from '../hooks/useMaterialData';
-import useSettingsData from '../hooks/useSettingsData';
-import useDimensions from '../hooks/useDimensions';
-import useCheckboxState from '../hooks/useCheckboxState';
-import useMaterialType from '../hooks/useMaterialType';
-import useCanvasOptions from '../hooks/useCanvasOptions';
-import useModal from '../hooks/useModal';
+import useMaterialData from '../../hooks/useMaterialData';
+import useSettingsData from '../../hooks/useSettingsData';
+import useDimensions from '../../hooks/useDimensions';
+import useCheckboxState from '../../hooks/useCheckboxState';
+import useMaterialType from '../../hooks/useMaterialType';
+import useCanvasOptions from '../../hooks/useCanvasOptions';
+import useModal from '../../hooks/useModal';
 
 function Main() {
   const { materials, currentMaterial, setCurrentMaterial } = useMaterialData();
