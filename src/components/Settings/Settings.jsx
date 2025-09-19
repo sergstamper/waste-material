@@ -4,7 +4,8 @@ import MaterialList from './MaterialList/MaterialList';
 import MaterialForm from './MaterialForm/MaterialForm';
 import useModal from '../hooks/useModal';
 import Modal from '../Common/Modal/Modal';
-import Button from '../Common/Button/Button';
+import DeleteModal from './DeleteModal/DeleteModal';
+import SaveModal from './SaveModal/SaveModal';
 
 import './Settings.css';
 
@@ -15,21 +16,20 @@ const materialTypes = [
   { name: 'canvas', description: 'холст' }
 ];
 
+const initialFormState = {
+  name: '',
+  description: '',
+  size: [],
+  type: 'banner',
+};
+
 function Settings() {
   const [data, setData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [sizeText, setSizeText] = useState('');
   const [underside, setUnderside] = useState('');
   const [pocket, setPocket] = useState('');
-  const [deleteIndex, setDeleteIndex] = useState(null);
-const [modalType, setModalType] = useState(null);
-
-  const initialFormState = {
-    name: '',
-    description: '',
-    size: [],
-    type: 'banner',
-  };
+  const [modal, setModal] = useState({ type: null, index: null });
 
   const [form, setForm] = useState(initialFormState);
 
@@ -51,6 +51,11 @@ const [modalType, setModalType] = useState(null);
       })
       .catch(console.error);
   }, []);
+
+  const resetForm = () => {
+    setForm(initialFormState);
+    setSizeText('');
+  };
 
   const handleSelect = (index) => {
     const item = data[index];
@@ -75,8 +80,13 @@ const [modalType, setModalType] = useState(null);
     setForm((prev) => ({ ...prev, size: lines }));
   };
 
+  const handleNewMaterial = () => {
+    resetForm();
+    setSelectedIndex(null);
+  };
+
   const handleSave = () => {
-    setModalType('save');
+    setModal({ type: 'save' });
     openModal();
   };
 
@@ -88,34 +98,21 @@ const [modalType, setModalType] = useState(null);
       updatedData[selectedIndex] = form;
     }
     setData(updatedData);
+    resetForm();
     setSelectedIndex(null);
-    setForm(initialFormState);
-    setSizeText('');
-    setModalType(null);
     closeModal();
   };
 
-  const handleNewMaterial = () => {
-    setSelectedIndex(null);
-    setForm(initialFormState);
-    setSizeText('');
+  const handleDeleteClick = (index) => {
+    setModal({ type: 'delete', index });
+    openModal();
   };
 
-  const handleDeleteClick = (index) => {
-    setDeleteIndex(index);
-    setModalType('delete');
-    openModal();
-};
-
-  const handleDelete = () => {
-    if (deleteIndex !== null) {
-      const updatedData = data.filter((_, i) => i !== deleteIndex);
-      setData(updatedData);
+  const confirmDelete = () => {
+    if (modal.index !== null) {
+      setData((prev) => prev.filter((_, i) => i !== modal.index));
+      resetForm();
       setSelectedIndex(null);
-      setForm(initialFormState);
-      setSizeText('');
-      setDeleteIndex(null);
-      setModalType(null);
       closeModal();
     }
   };
@@ -137,6 +134,7 @@ const [modalType, setModalType] = useState(null);
         onNewClick={handleNewMaterial}
         onSelectClick={handleSelect}
         onDeleteClick={handleDeleteClick}
+        selectedIndex={selectedIndex}
       />
 
       <MaterialForm
@@ -158,34 +156,16 @@ const [modalType, setModalType] = useState(null);
       />
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {modalType === 'delete' && (
-          <>
-            <div className="info-block">
-              <h2>
-                Хотите удалить материал <br />
-                <span className='material-name'>{data[deleteIndex]?.description}?</span>
-              </h2>
-            </div>
-            <div className="cancel-button-container">
-              <Button onClick={handleDelete} name="УДАЛИТЬ" className="modal-delete-button" />
-              <Button onClick={closeModal} name="ОТМЕНИТЬ" className="modal-cancel-button" />
-            </div>
-          </>
+        {modal.type === 'delete' && (
+          <DeleteModal
+            material={data[modal.index]}
+            onConfirm={confirmDelete}
+            onCancel={closeModal}
+          />
         )}
 
-        {modalType === 'save' && (
-          <>
-            <div className="info-block">
-              <h2>
-                Сохранить материал <br />
-                <span className='material-name'>{form.description || 'Без названия'}</span>?
-              </h2>
-            </div>
-            <div className="cancel-button-container">
-              <Button onClick={confirmSave} name="СОХРАНИТЬ" className="modal-save-button" />
-              <Button onClick={closeModal} name="ОТМЕНИТЬ" className="modal-nosave-button" />
-            </div>
-          </>
+        {modal.type === 'save' && (
+          <SaveModal form={form} onConfirm={confirmSave} onCancel={closeModal} />
         )}
       </Modal>
     </div>
